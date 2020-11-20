@@ -2,10 +2,16 @@
 
 <!--<?import com.gluonhq.charm.glisten.control.Avatar?>-->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,457 +19,1022 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="1141.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QTVController">
-  <tabs>
-    <Tab text="Tạo lịch thi">
-      <content>
-        <AnchorPane fx:id="testScheduleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="461.0" layoutY="-3.0" text="Tạo lịch thi" textAlignment="CENTER" textFill="#e80909">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="24.0" layoutY="67.0" text="Mã lớp" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="maLopTextField" layoutX="122.0" layoutY="68.0" />
-                  <Label layoutX="24.0" layoutY="101.0" text="Má học phần" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="maHPTextField" layoutX="122.0" layoutY="102.0" />
-                  <Label layoutX="24.0" layoutY="139.0" text="Tên học phần" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tenHPTextField" layoutX="122.0" layoutY="140.0" />
-                  <Label layoutX="24.0" layoutY="177.0" text="Ghi chú" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="ghiChuTextField" layoutX="122.0" layoutY="178.0" />
-                  <Label layoutX="24.0" layoutY="212.0" text="Nhóm" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nhomTextField" layoutX="122.0" layoutY="213.0" />
-                  <Label layoutX="24.0" layoutY="245.0" text="Đợt mở" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="dotMoTextField" layoutX="122.0" layoutY="246.0" />
-                  <Label layoutX="24.0" layoutY="279.0" text="Tuần" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tuanTextField" layoutX="122.0" layoutY="280.0" />
-                  <Label layoutX="27.0" layoutY="319.0" text="Thứ" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="thuTextField" layoutX="122.0" layoutY="317.0" />
-                  <Label layoutX="24.0" layoutY="351.0" text="Ngày thi" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="29.0" layoutY="388.0" text="Kíp" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="kipTextField" layoutX="122.0" layoutY="386.0" />
-                  <Label layoutX="24.0" layoutY="421.0" text="SLĐK" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="sldkTextField" layoutX="122.0" layoutY="422.0" />
-                  <Label layoutX="24.0" layoutY="458.0" text="Phòng thi" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phongTextField" layoutX="122.0" layoutY="459.0" />
-                  <Label layoutX="104.0" layoutY="37.0" text="Nhập dữ liệu lịch thi" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="25.0" layoutY="534.0" text="Import dữ liệu từ file Excel" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="200.0" layoutY="529.0" mnemonicParsing="false" onAction="#importFileExcel" text="Chọn file Excel">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <TableView fx:id="testScheduleTableView" layoutX="304.0" layoutY="67.0" prefHeight="424.0" prefWidth="802.0">
-                    <columns>
-                      <TableColumn fx:id="maLopColumn" prefWidth="50.0" text="Mã lớp" />
-                      <TableColumn fx:id="maHPColumn" prefWidth="81.0" text="Mã học phần" />
-                        <TableColumn fx:id="tenHPColumn" prefWidth="86.0" text="Tên học phần" />
-                        <TableColumn fx:id="ghiChuColumn" prefWidth="68.0" text="Ghi chú" />
-                        <TableColumn fx:id="nhomColumn" prefWidth="52.0" text="Nhóm" />
-                        <TableColumn fx:id="dotMoColumn" prefWidth="58.0" text="Đợt mở" />
-                        <TableColumn fx:id="tuanColumn" prefWidth="52.0" text="Tuần" />
-                        <TableColumn fx:id="thuColumn" prefWidth="53.0" text="Thứ" />
-                        <TableColumn fx:id="ngayThiColumn" prefWidth="112.0" text="Ngày thi" />
-                        <TableColumn fx:id="kipColumn" prefWidth="61.0" text="Kíp" />
-                        <TableColumn fx:id="sldkColumn" minWidth="0.0" prefWidth="60.0" text="SLĐK" />
-                        <TableColumn fx:id="phongColumn" prefWidth="71.0" text="Phòng thi" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="587.0" layoutY="36.0" text="Dữ liệu lịch thi">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="436.0" layoutY="513.0" mnemonicParsing="false" onAction="#Add" text="Add">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="506.0" layoutY="513.0" mnemonicParsing="false" onAction="#updateTestSchedule" text="Update">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="597.0" layoutY="514.0" mnemonicParsing="false" onAction="#deleteTestSchedule" text="Delete">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="684.0" layoutY="513.0" mnemonicParsing="false" onAction="#searchTestSchedule" text="Search">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="763.0" layoutY="513.0" mnemonicParsing="false" onAction="#resetTestSchedule" text="Reset">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="847.0" layoutY="513.0" mnemonicParsing="false" onAction="#dataTestScheduleLock" text="DataLock">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="25.0" layoutY="498.0" text="Học kỳ" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="hocKyLT" layoutX="122.0" layoutY="495.0" prefWidth="150.0" />
-                  <DatePicker fx:id="ngayThiLT" layoutX="123.0" layoutY="348.0" prefHeight="25.0" prefWidth="148.0" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-      <Tab text="Thông tin giảng viên">
-          <content>
-              <AnchorPane fx:id="lecturerAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="499.0" layoutY="14.0" text="Thông tin giáo viên">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="113.0" layoutY="49.0" text="Nhập thông tin giảng viên">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="37.0" layoutY="105.0" text="Họ và tên">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="hoVaTenGVTextField" layoutX="150.0" layoutY="101.0" />
-                  <Label layoutX="37.0" layoutY="150.0" text="Bộ môn">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="boMonGVTextField" layoutX="150.0" layoutY="146.0" />
-                  <Label layoutX="37.0" layoutY="195.0" text="Số điện thoại">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phoneNumberGVTextField" layoutX="150.0" layoutY="191.0" />
-                  <Label layoutX="37.0" layoutY="243.0" text="Email">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="emailGVTextField" layoutX="150.0" layoutY="239.0" />
-                  <Label layoutX="37.0" layoutY="293.0" text="Phòng làm việc">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phongGVTextField" layoutX="150.0" layoutY="289.0" />
-                  <Label layoutX="37.0" layoutY="343.0" text="Mã lớp giảng dạy">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="maLopGVTextField" layoutX="150.0" layoutY="339.0" />
-                  <Label layoutX="37.0" layoutY="410.0" text="TableName">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tableNameGVTextField" layoutX="150.0" layoutY="406.0" />
-                  <Label layoutX="37.0" layoutY="499.0" text="Import Data from Excel">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="207.0" layoutY="496.0" mnemonicParsing="false" onAction="#importFileExcelGV" text="Chọn file excel">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                  <TableView fx:id="lecturerTableView" layoutX="420.0" layoutY="98.0" prefHeight="349.0" prefWidth="617.0">
-                    <columns>
-                      <TableColumn fx:id="hoVaTenGVColumn" prefWidth="94.0" text="Họ và tên" />
-                      <TableColumn fx:id="boMonGVColumn" prefWidth="109.0" text="Bộ môn công tác" />
-                        <TableColumn fx:id="phoneNumberGVColumn" prefWidth="98.0" text="Số điện thoại" />
-                        <TableColumn fx:id="emailGVColumn" prefWidth="119.0" text="Email" />
-                        <TableColumn fx:id="phongGVColumn" prefWidth="98.0" text="Phòng làm việc" />
-                        <TableColumn fx:id="maLopGVColumn" minWidth="9.0" prefWidth="98.0" text="Mã lớp" />
-                    </columns>
-                  </TableView>
-                  <Button layoutX="448.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddGV" text="Add" />
-                  <Button layoutX="841.0" layoutY="495.0" mnemonicParsing="false" onAction="#resetLecturer" text="Reset" />
-                  <Button layoutX="538.0" layoutY="497.0" mnemonicParsing="false" onAction="#updateLecturer" text="Update" />
-                  <Button layoutX="747.0" layoutY="495.0" mnemonicParsing="false" onAction="#searchLecturer" text="Search" />
-                  <Button layoutX="645.0" layoutY="497.0" mnemonicParsing="false" onAction="#deleteLecturer" text="Delete" />
-                  <Button layoutX="928.0" layoutY="495.0" mnemonicParsing="false" onAction="#dataLecturerLock" text="Datalock" />
-               </children></AnchorPane>
-          </content>
-      </Tab>
-      <Tab text="Thông tin giám thị">
-          <content>
-              <AnchorPane fx:id="supervisorAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="455.0" layoutY="14.0" text="Thông tin giám thi trông thi">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="137.0" layoutY="89.0" text="Nhập thông tin tại đây">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="hoVaTenGTTextField" layoutX="191.0" layoutY="151.0" />
-                  <Label layoutX="56.0" layoutY="154.0" text="Họ và tên">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="boMonGTTextField" layoutX="191.0" layoutY="202.0" />
-                  <Label layoutX="56.0" layoutY="205.0" text="Bộ môn">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phoneNumberGTTextField" layoutX="191.0" layoutY="252.0" />
-                  <Label layoutX="56.0" layoutY="255.0" text="Số điện thoại">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="emailGTTextField" layoutX="191.0" layoutY="304.0" />
-                  <Label layoutX="56.0" layoutY="307.0" prefHeight="17.0" prefWidth="48.0" text="Email">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phongGTTextField" layoutX="191.0" layoutY="354.0" />
-                  <Label layoutX="56.0" layoutY="357.0" text="Phòng làm việc">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="56.0" layoutY="421.0" text="TableName">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tableNameGTTextField" layoutX="191.0" layoutY="417.0" />
-                  <Label layoutX="57.0" layoutY="506.0" text="Import file excel">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="supervisorTableView" layoutX="439.0" layoutY="125.0" prefHeight="328.0" prefWidth="627.0">
-                    <columns>
-                      <TableColumn fx:id="hoVaTenGTColumn" prefWidth="75.0" text="Họ và tên" />
-                      <TableColumn fx:id="boMonGTColumn" prefWidth="158.0" text="Bộ môn công tác" />
-                        <TableColumn fx:id="phoneNumberGTColumn" minWidth="9.0" prefWidth="104.0" text="Số điện thoại" />
-                        <TableColumn fx:id="emailGTColumn" minWidth="0.0" prefWidth="172.0" text="Email" />
-                        <TableColumn fx:id="phongGTColumn" prefWidth="117.0" text="Phòng làm việc" />
-                    </columns>
-                  </TableView>
-                  <Button layoutX="208.0" layoutY="501.0" mnemonicParsing="false" onAction="#importFileExcelGT" text="Chọn file excel">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="639.0" layoutY="88.0" text="Thông tin giám thị trông thi">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="498.0" layoutY="504.0" mnemonicParsing="false" onAction="#AddGT" text="Add" />
-                  <Button layoutX="955.0" layoutY="504.0" mnemonicParsing="false" onAction="#dataSupervisorLock" text="DataLock" />
-                  <Button layoutX="867.0" layoutY="504.0" mnemonicParsing="false" onAction="#resetSupervisor" text="Reset" />
-                  <Button layoutX="772.0" layoutY="504.0" mnemonicParsing="false" onAction="#searchSupervisor" text="Search" />
-                  <Button layoutX="680.0" layoutY="504.0" mnemonicParsing="false" onAction="#deleteSupervisor" text="Delete" />
-                  <Button layoutX="588.0" layoutY="504.0" mnemonicParsing="false" onAction="#updateSupervisor" text="Update" />
-               </children></AnchorPane>
-          </content>
-      </Tab>
-      <Tab text="Thông tin phân công trông thi">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="404.0" layoutY="14.0" prefHeight="35.0" prefWidth="360.0" text="Thông tin phân công trông thi">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="tableViewTrongThi" layoutX="65.0" layoutY="134.0" prefHeight="341.0" prefWidth="556.0">
-                    <columns>
-                      <TableColumn fx:id="malopTTColumn" prefWidth="79.0" text="Mã lớp" />
-                      <TableColumn fx:id="giamThi1TTColumn" prefWidth="138.0" text="Giám thị số 1" />
-                        <TableColumn fx:id="giamThi2TTColumn" prefWidth="138.0" text="Giám thị số 2" />
-                        <TableColumn fx:id="ngayThiTTColumn" prefWidth="115.0" text="Ngày thi" />
-                        <TableColumn fx:id="kipThiTTColumn" prefWidth="85.0" text="Kíp thi" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="233.0" layoutY="100.0" text="Kết quả phân công trông thi">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
-                  <TextArea fx:id="detailPC" layoutX="715.0" layoutY="134.0" prefHeight="427.0" prefWidth="374.0" />
-                  <Button layoutX="122.0" layoutY="507.0" mnemonicParsing="false" onAction="#phanCong" text="Phân công" />
-                  <Button layoutX="233.0" layoutY="507.0" mnemonicParsing="false" onAction="#UpdatePhanCong" text="Update" />
-                  <Button layoutX="329.0" layoutY="507.0" mnemonicParsing="false" onAction="#SearchPC" text="Search" />
-                  <Button layoutX="414.0" layoutY="507.0" mnemonicParsing="false" onAction="#ResetPC" text="Reset" />
-                  <Label layoutX="823.0" layoutY="91.0" text="Kết quả tìm kiếm chi tiết">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
-                  <Label layoutX="27.0" layoutY="36.0" text="Chọn học kỳ">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
-                  <TextField fx:id="semester" layoutX="112.0" layoutY="32.0" />
-                  <Button layoutX="497.0" layoutY="507.0" mnemonicParsing="false" onAction="#detailPC" text="Detail" />
-                  <Label layoutX="27.0" layoutY="65.0" text="Nhập mã lớp">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="maLopTT" layoutX="112.0" layoutY="61.0" />
-               </children></AnchorPane>
-          </content>
-      </Tab>
-      <Tab text="Quản lý kinh phí">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="451.0" prefHeight="35.0" prefWidth="195.0" text="Quản lý kinh phí" textFill="#1ac41f">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="74.0" layoutY="90.0" prefHeight="25.0" prefWidth="95.0" text="Thông tin đơn giá" />
-                  <TableView fx:id="donGiaTableView" layoutX="14.0" layoutY="124.0" prefHeight="266.0" prefWidth="213.0">
-                    <columns>
-                      <TableColumn fx:id="tenDonGiaTableColumn" prefWidth="115.0" text="Tên đơn giá" />
-                      <TableColumn fx:id="giaTableColumn" minWidth="0.0" prefWidth="107.0" text="Giá" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="14.0" layoutY="415.0" text="Tên đơn giá">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="466.0" text="Giá">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="giaKP" layoutX="96.0" layoutY="463.0" prefHeight="25.0" prefWidth="132.0" />
-                  <Button layoutX="24.0" layoutY="515.0" mnemonicParsing="false" onAction="#AddDG" text="Thêm đơn giá" />
-                  <Button layoutX="139.0" layoutY="515.0" mnemonicParsing="false" onAction="#updateDG" text="Cập nhật đơn giá" />
-                  <TableView fx:id="kinhPhiTableView" layoutX="240.0" layoutY="119.0" prefHeight="367.0" prefWidth="613.0">
-                    <columns>
-                      <TableColumn fx:id="maLopKPTableColumn" prefWidth="44.0" text="Mã lớp" />
-                      <TableColumn fx:id="tenGVTableColumn" prefWidth="84.0" text="Tên giáo viên" />
-                        <TableColumn fx:id="inAnTableColumn" prefWidth="46.0" text="In ấn" />
-                        <TableColumn fx:id="phoToTableColumn" prefWidth="83.0" text="Phô tô đề thi" />
-                        <TableColumn fx:id="toChucThiTableColumn" prefWidth="97.0" text="Kinh phí tổ chức" />
-                        <TableColumn fx:id="kinhPhiGTTableColumn" prefWidth="106.0" text="Kinh phí giám thị" />
-                        <TableColumn fx:id="checkThanhToanTableColumn" prefWidth="83.0" text="Thanh toán chưa" />
-                        <TableColumn fx:id="ghiChuKPTableColumn" prefWidth="69.0" text="Ghi chú" />
-                    </columns>
-                  </TableView>
-                  <Button layoutX="253.0" layoutY="515.0" mnemonicParsing="false" onAction="#tinhToanChiPhi" text="Tính toán kinh phí" />
-                  <Button layoutX="423.0" layoutY="515.0" mnemonicParsing="false" onAction="#ThanhToanChiPhi" text="Thanh toán chi phí" />
-                  <Button layoutX="603.0" layoutY="515.0" mnemonicParsing="false" onAction="#chiTietThanhToan" text="Xem chi tiết chi phí" />
-                  <TextArea fx:id="detailKP" layoutX="857.0" layoutY="115.0" prefHeight="426.0" prefWidth="276.0" />
-                  <ComboBox fx:id="tenDonGiaKP" layoutX="96.0" layoutY="412.0" prefHeight="25.0" prefWidth="133.0" />
-                  <Label layoutX="16.0" layoutY="18.0" prefHeight="19.0" prefWidth="49.0" text="Học kỳ">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="hocKyKP" layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="94.0" />
-                  <Label layoutX="949.0" layoutY="63.0" text="Thông tin chi tiết" />
-                  <Button layoutX="770.0" layoutY="515.0" mnemonicParsing="false" text="Reset" />
-                  <Label layoutX="16.0" layoutY="55.0" prefHeight="19.0" prefWidth="49.0" text="Mã Lóp">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="maLopKP" layoutX="84.0" layoutY="51.0" prefHeight="25.0" prefWidth="94.0" />
-               </children></AnchorPane>
-          </content>
-      </Tab>
-      <Tab text="Báo cáo thống kê">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-      </Tab>
-      <Tab text="Tìm kiếm thông tin">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-      </Tab>
-      <Tab text="Đăng xuất">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-      </Tab>
-  </tabs>
-</TabPane>
+<FlowPane prefHeight="658.0" prefWidth="1143.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QTVController">
+   <children>
+      <GridPane alignment="TOP_CENTER" prefHeight="19.0" prefWidth="1148.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="407.0" minWidth="10.0" prefWidth="375.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.0" minWidth="10.0" prefWidth="463.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label onMouseClicked="#Logout" prefHeight="0.0" prefWidth="92.0" text="Đăng xuất" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1159.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Tạo lịch thi">
+            <content>
+              <AnchorPane fx:id="testScheduleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="589.0" prefWidth="1017.0" style="-fx-background-color: linear-gradient(to bottom left, #008489, #99D1D3);">
+                     <children>
+                        <GridPane prefHeight="588.0" prefWidth="1144.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.3333129882812" minWidth="10.0" prefWidth="289.33331298828125" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="854.6666870117188" minWidth="10.0" prefWidth="854.6666870117188" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="388.0" minHeight="0.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="484.0" minHeight="4.0" prefHeight="472.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="TẠO LỊCH THI" textAlignment="CENTER" textFill="#1e1e1e" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="TẠO LỊCH THI" textAlignment="CENTER" textFill="#d78484" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets left="2.5" top="2.5" />
+                                 </padding>
+                              </Label>
+                              <GridPane GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="109.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Nhập dữ liệu lịch thi" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Mã lớp" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label prefWidth="84.0" text="Má học phần" textAlignment="CENTER" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Tên học phần" textAlignment="CENTER" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Ghi chú" textAlignment="CENTER" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Nhóm" textAlignment="CENTER" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Đợt mở" textAlignment="CENTER" GridPane.rowIndex="6">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Tuần" textAlignment="CENTER" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Thứ" textAlignment="CENTER" GridPane.rowIndex="8">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Ngày thi" textAlignment="CENTER" GridPane.rowIndex="9">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Kíp" textAlignment="CENTER" GridPane.rowIndex="10">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="SLĐK" textAlignment="CENTER" GridPane.rowIndex="11">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Phòng thi" textAlignment="CENTER" GridPane.rowIndex="12">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Học kỳ" textAlignment="CENTER" GridPane.rowIndex="13">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <TextField fx:id="maLopTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="maHPTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="tenHPTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="ghiChuTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="nhomTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="dotMoTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="tuanTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="thuTextField" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <DatePicker fx:id="ngayThiLT" prefHeight="25.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </DatePicker>
+                                    <TextField fx:id="kipTextField" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="sldkTextField" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="phongTextField" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <ComboBox fx:id="hocKyLT" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="211.0" minHeight="9.666656494140625" prefHeight="36.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="436.0" minHeight="10.0" prefHeight="436.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TableView fx:id="testScheduleTableView" prefHeight="440.0" prefWidth="855.0" style="-fx-background-color: linear-gradient(to bottom left, #008489, #99D1D3);" GridPane.rowIndex="1">
+                                      <columns>
+                                        <TableColumn fx:id="maLopColumn" prefWidth="50.0" text="Mã lớp" />
+                                        <TableColumn fx:id="maHPColumn" prefWidth="81.0" text="Mã học phần" />
+                                          <TableColumn fx:id="tenHPColumn" prefWidth="86.0" text="Tên học phần" />
+                                          <TableColumn fx:id="ghiChuColumn" prefWidth="104.0" text="Ghi chú" />
+                                          <TableColumn fx:id="nhomColumn" prefWidth="68.0" text="Nhóm" />
+                                          <TableColumn fx:id="dotMoColumn" prefWidth="66.0" text="Đợt mở" />
+                                          <TableColumn fx:id="tuanColumn" prefWidth="74.0" text="Tuần" />
+                                          <TableColumn fx:id="thuColumn" prefWidth="55.0" text="Thứ" />
+                                          <TableColumn fx:id="ngayThiColumn" prefWidth="86.0" text="Ngày thi" />
+                                          <TableColumn fx:id="kipColumn" prefWidth="51.0" text="Kíp" />
+                                          <TableColumn fx:id="sldkColumn" minWidth="0.0" prefWidth="58.0" text="SLĐK" />
+                                          <TableColumn fx:id="phongColumn" prefWidth="71.0" text="Phòng thi" />
+                                      </columns>
+                                    </TableView>
+                                    <Label text="Dữ liệu lịch thi" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#Add" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#updateTestSchedule" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#deleteTestSchedule" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#searchTestSchedule" text="Search" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#resetTestSchedule" text="Reset" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#dataTestScheduleLock" text="DataLock" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="23.33331298828125" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="78.66668701171875" minHeight="10.0" prefHeight="43.66668701171875" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#importFileExcel" text="Chọn file Excel" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Label text="Import dữ liệu từ file Excel" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Thông tin giảng viên">
+                <content>
+                    <AnchorPane fx:id="lecturerAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #99D1D3;">
+                     <children>
+                        <GridPane layoutY="-2.0" prefHeight="592.0" prefWidth="1158.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" prefWidth="363.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="869.0" minWidth="10.0" prefWidth="740.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="361.0" minWidth="10.0" prefWidth="55.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="186.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="483.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="THÔNG TIN GIÁO VIÊN" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="NHẬP THÔNG TIN GIẢNG VIÊN" textFill="#00676b" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane prefHeight="326.0" prefWidth="351.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <GridPane layoutX="17.0" layoutY="2.0" prefHeight="428.0" prefWidth="292.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="153.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="215.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Học kỳ">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="hocKyGV" prefHeight="25.0" prefWidth="108.0" GridPane.columnIndex="1" />
+                                          <Label text="Họ và tên" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="hoVaTenGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Bộ môn" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="boMonGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Số điện thoại" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="phoneNumberGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="Email" GridPane.rowIndex="4">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="emailGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <Label text="Phòng làm việc" GridPane.rowIndex="5">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="phongGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <Label text="Mã lớp giảng dạy" GridPane.rowIndex="6">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="maLopGVTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <GridPane layoutX="4.0" prefHeight="81.0" prefWidth="461.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="172.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="56.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="64.0" minHeight="8.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Import Data from Excel" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Button mnemonicParsing="false" onAction="#importFileExcelGV" text="Chọn file excel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="lecturerTableView" prefHeight="421.0" prefWidth="740.0" style="-fx-background-color: #6EC3C9;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <columns>
+                                  <TableColumn fx:id="hoVaTenGVColumn" prefWidth="94.0" text="Họ và tên" />
+                                  <TableColumn fx:id="boMonGVColumn" prefWidth="125.0" text="Bộ môn công tác" />
+                                    <TableColumn fx:id="phoneNumberGVColumn" prefWidth="124.0" text="Số điện thoại" />
+                                    <TableColumn fx:id="emailGVColumn" prefWidth="145.0" text="Email" />
+                                    <TableColumn fx:id="phongGVColumn" prefWidth="148.0" text="Phòng làm việc" />
+                                    <TableColumn fx:id="maLopGVColumn" minWidth="9.0" prefWidth="103.0" text="Mã lớp" />
+                                </columns>
+                              </TableView>
+                              <AnchorPane prefHeight="103.0" prefWidth="728.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <GridPane layoutY="3.0" prefHeight="100.0" prefWidth="744.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#AddGV" text="Add" GridPane.halignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#updateLecturer" text="Update" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#deleteLecturer" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#searchLecturer" text="Search" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#resetLecturer" text="Reset" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#dataLecturerLock" text="Datalock" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <Label text="THÔNG TIN GIÁO VIÊN" textFill="#00676b" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="2.0" top="2.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Thông tin giám thị">
+                <content>
+                    <AnchorPane fx:id="supervisorAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6EC3C9;">
+                     <children>
+                        <GridPane layoutX="1.0" layoutY="-3.0" prefHeight="602.0" prefWidth="1158.0" stylesheets="@style.css">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="241.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="889.0" minWidth="10.0" prefWidth="837.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="0.0" prefWidth="78.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="155.0" minHeight="0.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="606.0" minHeight="10.0" prefHeight="456.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="CÁN BỘ TRÔNG THI" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label contentDisplay="CENTER" text="CÁN BỘ TRÔNG THI" textFill="#00676b" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets right="3.0" top="2.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Nhập thông tin tại đây" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="50.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <AnchorPane prefHeight="300.0" prefWidth="635.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <GridPane layoutX="61.0" layoutY="-6.0" prefHeight="433.0" prefWidth="762.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="289.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="565.0" minHeight="10.0" prefHeight="405.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TableView fx:id="supervisorTableView" prefHeight="388.0" prefWidth="718.0" style="-fx-background-color: #00A6AD;" GridPane.rowIndex="1">
+                                            <columns>
+                                              <TableColumn fx:id="hoVaTenGTColumn" prefWidth="75.0" text="Họ và tên" />
+                                              <TableColumn fx:id="boMonGTColumn" prefWidth="158.0" text="Bộ môn công tác" />
+                                                <TableColumn fx:id="phoneNumberGTColumn" minWidth="9.0" prefWidth="184.0" text="Số điện thoại" />
+                                                <TableColumn fx:id="emailGTColumn" minWidth="0.0" prefWidth="224.0" text="Email" />
+                                                <TableColumn fx:id="phongGTColumn" prefWidth="153.0" text="Phòng làm việc" />
+                                            </columns>
+                                          </TableView>
+                                          <Label text="Thông tin giám thị trông thi" GridPane.halignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <GridPane prefHeight="56.0" prefWidth="242.0" GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Import file excel" GridPane.halignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets bottom="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#importFileExcelGT" text="Chọn file excel" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets bottom="40.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                              <GridPane style="-fx-background-color: #00B2BF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#AddGT" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#updateSupervisor" text="Update" GridPane.columnIndex="1" />
+                                    <Button mnemonicParsing="false" onAction="#deleteSupervisor" text="Delete" GridPane.columnIndex="2" />
+                                    <Button mnemonicParsing="false" onAction="#searchSupervisor" text="Search" GridPane.columnIndex="3" />
+                                    <Button mnemonicParsing="false" onAction="#resetSupervisor" text="Reset" GridPane.columnIndex="4" />
+                                    <Button mnemonicParsing="false" onAction="#dataSupervisorLock" text="DataLock" GridPane.columnIndex="5" />
+                                 </children>
+                              </GridPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <GridPane layoutX="18.0" layoutY="29.0" prefHeight="393.0" prefWidth="232.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="104.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="0.0" prefWidth="128.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Họ và tên" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Bộ môn" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Số điện thoại" GridPane.rowIndex="3">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="17.0" prefWidth="48.0" text="Email" GridPane.rowIndex="4">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Phòng làm việc" GridPane.rowIndex="5">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="hoVaTenGTTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="boMonGTTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="phoneNumberGTTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="emailGTTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="phongGTTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <Label text="Học kỳ">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="hocKyGT" prefHeight="31.0" prefWidth="94.0" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Thông tin phân công trông thi">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="4.0" layoutY="-1.0" prefHeight="586.0" prefWidth="1158.0" style="-fx-background-color: #6EC3C9;">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="648.0" minWidth="10.0" prefWidth="564.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="514.0" minWidth="10.0" prefWidth="508.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="499.0" minHeight="10.0" prefHeight="499.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="74.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="428.0" text="THÔNG TIN PHÂN CÔNG TRÔNG THI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="35.0" prefWidth="432.0" text="THÔNG TIN PHÂN CÔNG TRÔNG THI" textFill="#bc0a6c" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets right="4.0" top="3.0" />
+                                 </padding>
+                              </Label>
+                              <GridPane prefHeight="307.0" prefWidth="532.0" GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="390.0" minHeight="10.0" prefHeight="376.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="180.0" minHeight="8.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="30.0" layoutY="-8.0" prefHeight="62.0" prefWidth="238.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Chọn học kỳ">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Nhập mã lớp" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="hocKyPC" prefHeight="29.0" prefWidth="124.0" GridPane.columnIndex="1" />
+                                                <TextField fx:id="maLopTT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <GridPane layoutX="70.0" layoutY="11.0" prefHeight="387.0" prefWidth="540.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="371.0" minHeight="10.0" prefHeight="349.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Kết quả phân công trông thi" GridPane.halignment="CENTER">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <TableView fx:id="tableViewTrongThi" prefHeight="341.0" prefWidth="556.0" style="-fx-background-color: #00A6AD;" GridPane.rowIndex="1">
+                                                  <columns>
+                                                    <TableColumn fx:id="malopTTColumn" prefWidth="79.0" text="Mã lớp" />
+                                                    <TableColumn fx:id="giamThi1TTColumn" prefWidth="138.0" text="Giám thị số 1" />
+                                                      <TableColumn fx:id="giamThi2TTColumn" prefWidth="118.0" text="Giám thị số 2" />
+                                                      <TableColumn fx:id="ngayThiTTColumn" prefWidth="85.0" text="Ngày thi" />
+                                                      <TableColumn fx:id="kipThiTTColumn" prefWidth="135.0" text="Kíp thi" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </GridPane>
+                              <AnchorPane prefHeight="86.0" prefWidth="426.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <GridPane layoutX="102.0" layoutY="-25.0" prefHeight="23.0" prefWidth="540.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#phanCong" text="Phân công" />
+                                          <Button mnemonicParsing="false" onAction="#UpdatePhanCong" text="Update" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#SearchPC" text="Search" GridPane.columnIndex="2" />
+                                          <Button mnemonicParsing="false" onAction="#ResetPC" text="Reset" GridPane.columnIndex="3" />
+                                          <Button mnemonicParsing="false" onAction="#detailPC" text="Detail" GridPane.columnIndex="4" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <GridPane layoutX="8.0" layoutY="22.0" prefHeight="478.0" prefWidth="474.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="46.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="432.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Kết quả tìm kiếm chi tiết" GridPane.halignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextArea fx:id="detailPC" prefHeight="340.0" prefWidth="506.0" style="-fx-background-color: #99D1D3;" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Quản lý kinh phí">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #6EC3C9;">
+                     <children>
+                        <Label layoutX="455.0" layoutY="11.0" prefHeight="45.0" prefWidth="298.0" text="QUẢN LÝ KINH PHÍ" textFill="#272827">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="59.0" layoutY="87.0" prefHeight="25.0" prefWidth="124.0" text="THÔNG TIN ĐƠN GIÁ" />
+                        <TableView fx:id="donGiaTableView" layoutX="14.0" layoutY="124.0" prefHeight="266.0" prefWidth="213.0" style="-fx-background-color: #00A6AD;">
+                          <columns>
+                            <TableColumn fx:id="tenDonGiaTableColumn" prefWidth="115.0" text="Tên đơn giá" />
+                            <TableColumn fx:id="giaTableColumn" minWidth="0.0" prefWidth="107.0" text="Giá" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="14.0" layoutY="415.0" text="Tên đơn giá">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="466.0" text="Giá">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="giaKP" layoutX="96.0" layoutY="463.0" prefHeight="25.0" prefWidth="132.0" />
+                        <Button layoutX="20.0" layoutY="511.0" mnemonicParsing="false" onAction="#AddDG" text="Thêm đơn giá" />
+                        <Button layoutX="149.0" layoutY="511.0" mnemonicParsing="false" onAction="#updateDG" text="Cập nhật đơn giá" />
+                        <TableView fx:id="kinhPhiTableView" layoutX="240.0" layoutY="119.0" prefHeight="367.0" prefWidth="613.0" style="-fx-background-color: #00A6AD;">
+                          <columns>
+                            <TableColumn fx:id="maLopKPTableColumn" prefWidth="44.0" text="Mã lớp" />
+                            <TableColumn fx:id="tenGVTableColumn" prefWidth="84.0" text="Tên giáo viên" />
+                              <TableColumn fx:id="inAnTableColumn" prefWidth="46.0" text="In ấn" />
+                              <TableColumn fx:id="phoToTableColumn" prefWidth="83.0" text="Phô tô đề thi" />
+                              <TableColumn fx:id="toChucThiTableColumn" prefWidth="97.0" text="Kinh phí tổ chức" />
+                              <TableColumn fx:id="kinhPhiGTTableColumn" prefWidth="106.0" text="Kinh phí giám thị" />
+                              <TableColumn fx:id="checkThanhToanTableColumn" prefWidth="83.0" text="Thanh toán chưa" />
+                              <TableColumn fx:id="ghiChuKPTableColumn" prefWidth="69.0" text="Ghi chú" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="300.0" layoutY="511.0" mnemonicParsing="false" onAction="#tinhToanChiPhi" text="Tính toán kinh phí" />
+                        <Button layoutX="463.0" layoutY="511.0" mnemonicParsing="false" onAction="#ThanhToanChiPhi" text="Thanh toán chi phí" />
+                        <Button layoutX="635.0" layoutY="512.0" mnemonicParsing="false" onAction="#chiTietThanhToan" text="Xem chi tiết chi phí" />
+                        <TextArea fx:id="detailKP" layoutX="866.0" layoutY="115.0" prefHeight="426.0" prefWidth="276.0" />
+                        <ComboBox fx:id="tenDonGiaKP" layoutX="96.0" layoutY="412.0" prefHeight="25.0" prefWidth="133.0" />
+                        <Label layoutX="16.0" layoutY="18.0" prefHeight="19.0" prefWidth="49.0" text="Học kỳ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="949.0" layoutY="71.0" text="THÔNG TIN CHI TIẾT">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
+                        <Button layoutX="792.0" layoutY="512.0" mnemonicParsing="false" onAction="#resetKP" text="Reset" />
+                        <Label layoutX="16.0" layoutY="55.0" prefHeight="19.0" prefWidth="49.0" text="Mã Lóp">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="maLopKP" layoutX="84.0" layoutY="51.0" prefHeight="25.0" prefWidth="94.0" />
+                        <ComboBox fx:id="hocKyKP" layoutX="84.0" layoutY="15.0" prefHeight="25.0" prefWidth="95.0" />
+                        <Label layoutX="453.0" layoutY="11.0" prefHeight="45.0" prefWidth="296.0" text="QUẢN LÝ KINH PHÍ" textFill="#00676b">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Báo cáo thống kê">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.3740122914837577" layoutX="7.0" prefHeight="596.0" prefWidth="1141.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #6EC3C9;">
+                                 <children>
+                                    <Label layoutX="112.0" layoutY="14.0" text="Thông tin giảng viên và giám thị">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="baoCaoTableView" layoutX="12.0" layoutY="114.0" prefHeight="362.0" prefWidth="399.0">
+                                      <columns>
+                                        <TableColumn fx:id="maLopTableColumn" prefWidth="93.0" text="Mã Lớp" />
+                                        <TableColumn fx:id="cot2" prefWidth="166.0" text="Tổng chi phí của lớp" />
+                                          <TableColumn fx:id="cot3" prefWidth="139.0" text="Xác nhận thanh toán" />
+                                      </columns>
+                                    </TableView>
+                                    <CheckBox fx:id="gvCheckBox" layoutX="14.0" layoutY="505.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="159.0" text="Thông tin giảng viên">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="gtCheckBox" layoutX="232.0" layoutY="505.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Thông tin giám thị">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Label layoutX="14.0" layoutY="44.0" text="Họ tên giảng viên/giám thị">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="hotenGV_GT" layoutX="15.0" layoutY="67.0" prefHeight="29.0" prefWidth="164.0">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="270.0" layoutY="58.0" prefHeight="19.0" prefWidth="48.0" text="Học kỳ">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="hocKyBCTK" layoutX="330.0" layoutY="55.0" prefHeight="25.0" prefWidth="82.0" />
+                                    <Button layoutX="173.0" layoutY="540.0" mnemonicParsing="false" onAction="#DetailBC" text="Detail" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="702.0" style="-fx-background-color: #00B2BF;">
+                                 <children>
+                                    <BarChart fx:id="barChart" layoutX="35.0" layoutY="70.0" prefHeight="421.0" prefWidth="641.0">
+                                      <xAxis>
+                                        <CategoryAxis label="LOẠI CHI PHÍ" side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis label="TỔNG CHI PHÍ" side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                    <Label layoutX="287.0" layoutY="6.0" text="Thống kê chi phí">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="20.0" text="Học kỳ">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="hocKyTK" layoutX="70.0" layoutY="16.0" prefHeight="25.0" prefWidth="82.0" />
+                                    <Button layoutX="323.0" layoutY="539.0" mnemonicParsing="false" onAction="#ThongKe" text="Thống kê" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Tìm kiếm thông tin">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                </content>
+            </Tab>
+            <Tab text="Đăng xuất">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</FlowPane>

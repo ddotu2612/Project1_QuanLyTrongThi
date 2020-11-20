@@ -12,8 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -109,7 +112,8 @@ public class QTVController implements Initializable {
     @FXML
     TextField maLopGVTextField;
     @FXML
-    TextField tableNameGVTextField;
+    ComboBox<String> hocKyGV;
+    ObservableList<String> listHKGV = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
     TableView<Lecturers> lecturerTableView;
     @FXML
@@ -140,7 +144,8 @@ public class QTVController implements Initializable {
     @FXML
     TextField phongGTTextField;
     @FXML
-    TextField tableNameGTTextField;
+    ComboBox<String> hocKyGT;
+    ObservableList<String> listHKGT = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
     TableView<Supervisor> supervisorTableView;
     @FXML
@@ -162,7 +167,8 @@ public class QTVController implements Initializable {
     @FXML
     TextField maLopTT;
     @FXML
-    TextField semester;
+    ComboBox<String> hocKyPC;
+    ObservableList<String> listHKPC = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
     TableView<InfoTrongThi> tableViewTrongThi;
     @FXML
@@ -180,7 +186,8 @@ public class QTVController implements Initializable {
     //quản lý kinh phí
     @FXML TextField maLopKP;
     @FXML TextArea detailKP;
-    @FXML TextField hocKyKP;
+    @FXML ComboBox<String> hocKyKP;
+    ObservableList<String> listHKKP = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML TextField giaKP;
     @FXML ComboBox<String> tenDonGiaKP;
     ObservableList<String> listKP=FXCollections.observableArrayList("in ấn","Phô tô đề thi","Kinh phí tổ chức","Tiền giám thị");
@@ -200,11 +207,30 @@ public class QTVController implements Initializable {
     @FXML TableColumn<KinhPhi,String> ghiChuKPTableColumn;
     ObservableList<KinhPhi> kinhPhiList;
 
+    //Báo cáo thống kê
+    @FXML CheckBox gvCheckBox;
+    @FXML CheckBox gtCheckBox;
+    @FXML TextField hotenGV_GT;
+    @FXML ComboBox<String> hocKyBCTK;
+    ObservableList<String> listHKBCTK = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
+    @FXML TableView<BaoCao> baoCaoTableView;
+    @FXML TableColumn<BaoCao, Integer> maLopTableColumn;
+    @FXML TableColumn<BaoCao, String> cot2;
+    @FXML TableColumn<BaoCao, String> cot3;
+    ObservableList<BaoCao> baoCaoList;
+    @FXML ComboBox<String> hocKyTK;
+    ObservableList<String> listHKTK = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hocKyLT.setItems(listHKLT);
         hocKyLT.setPromptText("20201");
-        //DBController dbController=new DBController();
+        hocKyGV.setItems(listHKGV);
+        hocKyGT.setItems(listHKGT);
+        hocKyPC.setItems(listHKPC);
+        hocKyKP.setItems(listHKKP);
+        hocKyBCTK.setItems(listHKBCTK);
+        hocKyTK.setItems(listHKTK);
         ArrayList<TestSchedule> testSchedules=null;
         try {
             testSchedules=dbController.testScheduleList("LichThi20192");
@@ -327,6 +353,13 @@ public class QTVController implements Initializable {
             checkThanhToanTableColumn.setCellValueFactory(new PropertyValueFactory<KinhPhi,Integer>("checkThanhToan"));
             ghiChuKPTableColumn.setCellValueFactory(new PropertyValueFactory<KinhPhi,String>("ghiChu"));
             kinhPhiTableView.setItems(kinhPhiList);
+        }
+    }
+    public void Logout(){
+        try{
+            new Logout().Excute_Logout();
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -704,8 +737,8 @@ public class QTVController implements Initializable {
          //connect to database
          //DBConnection dbConnection=new DBConnection();
          Connection conn=dbConnection.getConnection();
-         if(tableNameGVTextField.getText().length() !=0  && !dbController.checkExistTable(tableNameGVTextField.getText())){
-             String tableName=tableNameGVTextField.getText();
+         if(hocKyGV.getValue().length() !=0  && !dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+             String tableName="GiangVien" + hocKyGV.getValue();
              if(dataControler.isCheckDataLock(tableName)){
                  //Delete table
                  String sql1="IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES Where Table_Schema = 'dbo'  AND Table_Name = '"+tableName+"') "+
@@ -805,13 +838,13 @@ public class QTVController implements Initializable {
              Alert alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("ERROR");
              alert.setHeaderText(null);
-             alert.setContentText("Bạn chưa nhập tên bảng giảng viên hoặc bảng đã tồn tại");
+             alert.setContentText("Bạn chưa nhập học kỳ hoặc bảng dữ liệu học kỳ này đã tồn tại");
              alert.showAndWait();
          }
      }
     public void AddGV(ActionEvent e) throws ParseException, SQLException {
-        if(tableNameGVTextField.getText().length() !=0){
-            String tableName=tableNameGVTextField.getText();
+        if(hocKyGV.getValue().length() !=0){
+            String tableName = "GiangVien" + hocKyGV.getValue();
             if(dataControler.isCheckDataLock(tableName)  && dbController.checkExistTable(tableName)){
                 String name=hoVaTenGVTextField.getText();
                 String boMon=boMonGVTextField.getText();
@@ -853,13 +886,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng thông tin giáo viên hoặc các thông tin khác");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc các thông tin khác");
             alert.showAndWait();
         }
     }
     public void resetLecturer(ActionEvent e) throws SQLException {
-        if(tableNameGVTextField.getText().length() != 0 && dbController.checkExistTable(tableNameGVTextField.getText())){
-            String tableName=tableNameGVTextField.getText();
+        if(hocKyGV.getValue().length() != 0 && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            String tableName = "GiangVien" + hocKyGV.getValue();
             //DBController dbController=new DBController();
             ArrayList<Lecturers> lecturers=null;
             try {
@@ -884,7 +917,7 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng cơ sở dữ liệu bạn muốn reset hoặc bảng dữ liệu không tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ bạn muốn reset hoặc bảng dữ liệu không tồn tại");
             alert.showAndWait();
         }
         hoVaTenGVTextField.setText("");
@@ -895,9 +928,8 @@ public class QTVController implements Initializable {
         maLopGVTextField.setText("");
     }
     public void updateLecturer(ActionEvent e) throws ParseException, SQLException {
-        //DBController dbController=new DBController();
-        if(tableNameGVTextField.getText().length() !=0 && dbController.checkExistTable(tableNameGVTextField.getText())){
-            String tableName=tableNameGVTextField.getText() ;
+        if(hocKyGV.getValue().length() !=0 && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            String tableName = "GiangVien" + hocKyGV.getValue() ;
             Lecturers lecturers=lecturerTableView.getSelectionModel().getSelectedItem();
             if(maLopGVTextField.getText().matches("\\d+") ){
                 String name=hoVaTenGVTextField.getText();
@@ -931,14 +963,14 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng dữ liệu (học kỳ tương ứng) hoặc bảng không tồn tại ");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc bảng dữ liệu học kỳ này không tồn tại ");
             alert.showAndWait();
         }
     }
     public void searchLecturer(ActionEvent e) throws SQLException {
-        if(hoVaTenGVTextField.getText().length() != 0 && tableNameGVTextField.getText().length() != 0 &&dbController.checkExistTable(tableNameGVTextField.getText())){
+        if(hoVaTenGVTextField.getText().length() != 0 && hocKyGV.getValue().length() != 0 &&dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
            String hoTen=hoVaTenGVTextField.getText();
-            String tableName=tableNameGVTextField.getText();
+            String tableName = "GiangVien" + hocKyGV.getValue() ;
             ArrayList<Lecturers> list=dbController.searchLecturerFromDatabase(hoTen,tableName);
             if(list.size() ==0){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -960,13 +992,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập mã lớp và bảng lưu thông tin học kỳ mà bạn tìm kiếm hoặc bảng bạn nhập không tồn tại");
+            alert.setContentText("Bạn chưa nhập tên giảng viên và học kỳ mà bạn tìm kiếm hoặc bảng dữ liệu cho học kỳ này không tồn tại");
             alert.showAndWait();
         }
     }
     public void deleteLecturer(ActionEvent e) throws SQLException {
-        if(tableNameGVTextField.getText().length() != 0 && dbController.checkExistTable(tableNameGVTextField.getText())){
-            String tableName=tableNameGVTextField.getText();
+        if(hocKyGV.getValue().length() != 0 && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            String tableName = "GiangVien" + hocKyGV.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 Lecturers lecturers=lecturerTableView.getSelectionModel().getSelectedItem();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1003,13 +1035,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập bảng lưu thông tin giảng viên mà bạn muốn xóa hoặc bảng không tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ mà bạn muốn xóa hoặc bảng không tồn tại");
             alert.showAndWait();
         }
     }
     public void dataLecturerLock(ActionEvent e) throws SQLException {
-        if(tableNameGVTextField.getText().length() != 0 && dataControler.isCheckDataLock(tableNameGVTextField.getText()) && dbController.checkExistTable(tableNameGVTextField.getText())){
-            String tableName=tableNameGVTextField.getText();
+        if(hocKyGV.getValue().length() != 0 && dataControler.isCheckDataLock("GiangVien" + hocKyGV.getValue()) && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            String tableName = "GiangVien" + hocKyGV.getValue();
             Connection conn =dbConnection.getConnection();
             String sql="insert into dbo.LockData values(?,?) ;";
             var prepare=conn.prepareStatement(sql) ;
@@ -1031,7 +1063,7 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập bảng mà bạn muốn khóa hoặc bảng đã bị khóa hoặc bảng không tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc bảng dữ liệu học kỳ này đã bị khóa hoặc bảng không tồn tại");
             alert.showAndWait();
         }
     }
@@ -1043,8 +1075,8 @@ public class QTVController implements Initializable {
         //connect to database
         //DBConnection dbConnection=new DBConnection();
         Connection conn=dbConnection.getConnection();
-        if(tableNameGTTextField.getText().length() !=0  && !dbController.checkExistTable(tableNameGTTextField.getText())){
-            String tableName=tableNameGTTextField.getText();
+        if(hocKyGT.getValue().length() !=0  && !dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 //Delete table
                 String sql1="IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES Where Table_Schema = 'dbo'  AND Table_Name = '"+tableName+"') "+
@@ -1075,7 +1107,7 @@ public class QTVController implements Initializable {
                 if(file != null){
                     sourceFile=file.getPath();
                 }
-                String sheetName="GiamThi20192";
+                String sheetName="GiamThi" + hocKyGT.getValue();
                 try {
                     //read file excel
                     FileInputStream fileInputStream=new FileInputStream(sourceFile);
@@ -1143,13 +1175,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng giảng viên hoặc bảng đã tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc bảng đã tồn tại");
             alert.showAndWait();
         }
     }
     public void AddGT(ActionEvent e) throws ParseException, SQLException {
-        if(tableNameGTTextField.getText().length() !=0){
-            String tableName=tableNameGTTextField.getText();
+        if(hocKyGT.getValue().length() !=0){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             if(dataControler.isCheckDataLock(tableName)  && dbController.checkExistTable(tableName)){
                 String name=hoVaTenGTTextField.getText();
                 String boMon=boMonGTTextField.getText();
@@ -1190,13 +1222,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng thông tin giám thị hoặc các thông tin khác");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc các thông tin khác");
             alert.showAndWait();
         }
     }
     public void resetSupervisor(ActionEvent e) throws SQLException {
-        if(tableNameGTTextField.getText().length() != 0 && dbController.checkExistTable(tableNameGTTextField.getText())){
-            String tableName=tableNameGTTextField.getText();
+        if(hocKyGT.getValue().length() != 0 && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             //DBController dbController=new DBController();
             ArrayList<Supervisor> supervisors =null;
             try {
@@ -1230,9 +1262,8 @@ public class QTVController implements Initializable {
         phongGTTextField.setText("");
     }
     public void updateSupervisor(ActionEvent e) throws ParseException, SQLException {
-        //DBController dbController=new DBController();
-        if(tableNameGTTextField.getText().length() !=0 && dbController.checkExistTable(tableNameGTTextField.getText())){
-            String tableName=tableNameGTTextField.getText() ;
+        if(hocKyGT.getValue().length() !=0 && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             Supervisor supervisor=supervisorTableView.getSelectionModel().getSelectedItem();
             if(phoneNumberGTTextField.getText().matches("\\d+") ){
                 String name=hoVaTenGTTextField.getText();
@@ -1265,14 +1296,14 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập tên bảng dữ liệu (học kỳ tương ứng) hoặc bảng không tồn tại ");
+            alert.setContentText("Bạn chưa học kỳ hoặc bảng không tồn tại ");
             alert.showAndWait();
         }
     }
     public void searchSupervisor(ActionEvent e) throws SQLException {
-        if(hoVaTenGTTextField.getText().length() != 0 && tableNameGTTextField.getText().length() != 0 &&dbController.checkExistTable(tableNameGTTextField.getText())){
+        if(hoVaTenGTTextField.getText().length() != 0 && hocKyGT.getValue().length() != 0 &&dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
             String hoTen=hoVaTenGTTextField.getText();
-            String tableName=tableNameGTTextField.getText();
+            String tableName = "GiamThi" + hocKyGT.getValue();
             Supervisor list=dbController.searchSupervisorFromDatabase(hoTen,tableName);
             if(list== null){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1298,8 +1329,8 @@ public class QTVController implements Initializable {
         }
     }
     public void deleteSupervisor(ActionEvent e) throws SQLException {
-        if(tableNameGTTextField.getText().length() != 0 && dbController.checkExistTable(tableNameGTTextField.getText())){
-            String tableName=tableNameGTTextField.getText();
+        if(hocKyGT.getValue().length() != 0 && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 Supervisor supervisor=supervisorTableView.getSelectionModel().getSelectedItem();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1336,13 +1367,13 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập bảng lưu thông tin giám thị mà bạn muốn xóa hoặc bảng không tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ mà bạn muốn xóa hoặc bảng không tồn tại");
             alert.showAndWait();
         }
     }
     public void dataSupervisorLock(ActionEvent e) throws SQLException {
-        if(tableNameGTTextField.getText().length() != 0 && dataControler.isCheckDataLock(tableNameGTTextField.getText()) && dbController.checkExistTable(tableNameGTTextField.getText())){
-            String tableName=tableNameGTTextField.getText();
+        if(hocKyGT.getValue().length() != 0 && dataControler.isCheckDataLock("GiamThi" + hocKyGT.getValue()) && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            String tableName = "GiamThi" + hocKyGT.getValue();
             Connection conn =dbConnection.getConnection();
             String sql="insert into dbo.LockData values(?,?) ;";
             var prepare=conn.prepareStatement(sql) ;
@@ -1364,16 +1395,17 @@ public class QTVController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa nhập bảng mà bạn muốn khóa hoặc bảng đã bị khóa hoặc bảng không tồn tại");
+            alert.setContentText("Bạn chưa nhập học kỳ hoặc bảng đã bị khóa hoặc bảng không tồn tại");
             alert.showAndWait();
         }
     }
     //Phân công lịch thi
     public void phanCong(ActionEvent e) throws SQLException {
-        if(semester.getText().length() != 0){
-            String tableNameGT="GiamThi"+semester.getText();
-            String tableNameLT="LichThi"+semester.getText();
-            String tableNamePhanCong="PhanCong"+semester.getText();
+        if(hocKyPC.getValue().length() != 0 && dbController.checkExistTable("GiamThi" +
+                hocKyPC.getValue()) && dbController.checkExistTable("LichThi" + hocKyPC.getValue())){
+            String tableNameGT = "GiamThi" + hocKyPC.getValue();
+            String tableNameLT = "LichThi" + hocKyPC.getValue();
+            String tableNamePhanCong="PhanCong" + hocKyPC.getValue();
             if(!dbController.checkExistTable(tableNamePhanCong)){
                 ArrayList<Supervisor> supervisors=dbController.supervisorList(tableNameGT);
                 ArrayList<TestSchedule> testSchedules=dbController.testScheduleList(tableNameLT);
@@ -1429,8 +1461,8 @@ public class QTVController implements Initializable {
     }
 
     public void ResetPC(ActionEvent e) throws SQLException {
-        if(semester.getText().length() !=0){
-            String tableName="PhanCong"+semester.getText();
+        if(hocKyPC.getValue().length() !=0){
+            String tableName="PhanCong"+hocKyPC.getValue();
             ArrayList<InfoTrongThi> trongThi=null;
             trongThi=dbController.trongThiList(tableName);
             if(trongThi==null){
@@ -1453,9 +1485,9 @@ public class QTVController implements Initializable {
         }
     }
     public void SearchPC(ActionEvent e) throws SQLException {
-        if(maLopTT.getText().length() !=0 && semester.getText().length() !=0){
+        if(maLopTT.getText().length() !=0 && hocKyPC.getValue().length() !=0){
            int maLop= Integer.parseInt(maLopTT.getText());
-            String tableName="PhanCong"+semester.getText();
+            String tableName="PhanCong"+hocKyPC.getValue();
             ArrayList<InfoTrongThi> list=dbController.searchInfoTrongThiFromDatabase(maLop,tableName);
             if(list.size() == 0){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1481,8 +1513,8 @@ public class QTVController implements Initializable {
         }
     }
     public void detailPC(ActionEvent e) throws SQLException {
-        if(tableViewTrongThi.getSelectionModel().getSelectedItem() != null && semester.getText().length() != 0){
-            String tableSupervisor="GiamThi"+semester.getText();
+        if(tableViewTrongThi.getSelectionModel().getSelectedItem() != null && hocKyPC.getValue().length() != 0){
+            String tableSupervisor="GiamThi"+hocKyPC.getValue();
             InfoTrongThi infoTrongThi=tableViewTrongThi.getSelectionModel().getSelectedItem();
             Supervisor supervisor1=dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi1(),tableSupervisor);
             Supervisor supervisor2=dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi2(),tableSupervisor);
@@ -1512,8 +1544,8 @@ public class QTVController implements Initializable {
     }
     //chức năng quản lý kinh phí
     public void AddDG(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() != 0 ){
-            String tableName="DonGia"+hocKyKP.getText();
+        if(hocKyKP.getValue() != null ){
+            String tableName="DonGia" + hocKyKP.getValue();
             if(giaKP.getText().length() != 0 ){
                 long gia= Long.parseLong(giaKP.getText());
                 String tenDonGia=tenDonGiaKP.getValue();
@@ -1547,11 +1579,11 @@ public class QTVController implements Initializable {
     }
 
     public void updateDG(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() != 0 ){
-            String tableName="DonGia"+hocKyKP.getText();
+        if(hocKyKP.getValue().length() != 0 ){
+            String tableName="DonGia" + hocKyKP.getValue();
             if(giaKP.getText().length()!=0 && tenDonGiaKP.getValue().length() !=0 ){
-                DonGia donGia=donGiaTableView.getSelectionModel().getSelectedItem();
-                DonGia donGia1=new DonGia(tenDonGiaKP.getValue(),Long.parseLong(giaKP.getText()));
+                DonGia donGia = donGiaTableView.getSelectionModel().getSelectedItem();
+                DonGia donGia1 = new DonGia(tenDonGiaKP.getValue(),Long.parseLong(giaKP.getText()));
                 if(dbController.updateDonGia(donGia,donGia1,tableName)){
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
@@ -1581,19 +1613,19 @@ public class QTVController implements Initializable {
         }
     }
     public void tinhToanChiPhi(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() != 0){
-            String tableNameGV="GiangVien"+hocKyKP.getText();
-            String tableNameDG="DonGia"+hocKyKP.getText();
-            String tableNameKP="KinhPhi"+hocKyKP.getText();
+        if(hocKyKP.getValue().length() != 0){
+            String tableNameGV="GiangVien" + hocKyKP.getValue();
+            String tableNameDG="DonGia" + hocKyKP.getValue();
+            String tableNameKP="KinhPhi" + hocKyKP.getValue();
             if(dbController.checkExistTable(tableNameKP)){
                 String sql="drop table "+tableNameKP;
                 var prepare=new DBConnection().getConnection().prepareStatement(sql);
                 prepare.executeUpdate();
             }
-            String sql1="create table "+tableNameKP+" (maLop int,tenGV nvarchar(50) ,inAn bigint ,phoTo bigint,toChucThi bigint,kinhPhiGT bigint,checkThanhToan int,ghiChu nvarchar(50));";
+            String sql1="create table " + tableNameKP + " (maLop int,tenGV nvarchar(50) ,inAn bigint ,phoTo bigint,toChucThi bigint,kinhPhiGT bigint,checkThanhToan int,ghiChu nvarchar(50));";
             var prepare=dbConnection.getConnection().prepareStatement(sql1);
             prepare.executeUpdate();
-            String tableNameLT="LichThi"+hocKyKP.getText();
+            String tableNameLT = "LichThi" + hocKyKP.getValue();
             ArrayList<TestSchedule> listLT=dbController.testScheduleList(tableNameLT);
             if(listLT != null){
                 for (TestSchedule test:listLT) {
@@ -1628,9 +1660,9 @@ public class QTVController implements Initializable {
     }
 
     public void ThanhToanChiPhi(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() != 0){
+        if(hocKyKP.getValue().length() != 0){
             if(maLopKP.getText().length() !=0){
-                String tableName="KinhPhi"+hocKyKP.getText();
+                String tableName="KinhPhi" + hocKyKP.getValue();
                 String sql="update "+ tableName+ " set checkThanhToan=? where maLop = ?";
                 var prepare=new DBConnection().getConnection().prepareStatement(sql);
                 prepare.setInt(1,1);
@@ -1664,9 +1696,9 @@ public class QTVController implements Initializable {
         }
     }
     public void chiTietThanhToan(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() != 0){
-            String tableNameKP="KinhPhi"+hocKyKP.getText();
-            String tableNameLT="LichThi"+hocKyKP.getText();
+        if(hocKyKP.getValue().length() != 0){
+            String tableNameKP="KinhPhi" + hocKyKP.getValue();
+            String tableNameLT="LichThi" + hocKyKP.getValue();
             if(maLopKP.getText().length() != 0 && dbController.checkExistTable(tableNameKP)){
                 if(detailKP.getText().length() !=0) detailKP.setText("");
                 int maLop= Integer.parseInt(maLopKP.getText());
@@ -1704,9 +1736,9 @@ public class QTVController implements Initializable {
         }
     }
     public void resetKP(ActionEvent e) throws SQLException {
-        if(hocKyKP.getText().length() !=0){
-            String tableNameDG="DonGia"+hocKyKP.getText();
-            String tableNameKP="KinhPhi"+hocKyKP.getText();
+        if(hocKyKP.getValue() != null){
+            String tableNameDG="DonGia" + hocKyKP.getValue();
+            String tableNameKP="KinhPhi" + hocKyKP.getValue();
             ArrayList<DonGia> donGia=dbController.donGiaList(tableNameDG);
             donGiaList=FXCollections.observableArrayList(donGia);
             tenDonGiaTableColumn.setCellValueFactory(new PropertyValueFactory<DonGia,String>("tenDonGia"));
@@ -1733,5 +1765,90 @@ public class QTVController implements Initializable {
         }
     }
     //Báo cáo thống kê
-
+    public void DetailBC(ActionEvent e) throws SQLException, ParseException {
+        if(gvCheckBox.isSelected() && hocKyBCTK.getValue() != null && hotenGV_GT.getText().length() != 0) {
+            String name = hotenGV_GT.getText();
+            ArrayList<BaoCao> baoCaos = dbController.BaoCaoGV(name, "KinhPhi" + hocKyBCTK.getValue());
+            if(baoCaos.size() != 0) {
+                maLopTableColumn.setText("Mã lớp");
+                cot2.setText("Tổng chi phí");
+                cot3.setText("Trạng thái thanh toán");
+                baoCaoList =  FXCollections.observableList(baoCaos);
+                maLopTableColumn.setCellValueFactory(new PropertyValueFactory<BaoCao, Integer>("maLop"));
+                cot2.setCellValueFactory(new PropertyValueFactory<BaoCao, String>("cot2"));
+                cot3.setCellValueFactory(new PropertyValueFactory<BaoCao, String>("cot3"));
+                baoCaoTableView.setItems(baoCaoList);
+            } else {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText(null);
+                alert.setContentText("Tên giảng viên không tồn tại ");
+                alert.showAndWait();
+            }
+        } else if(gtCheckBox.isSelected() && hocKyBCTK.getValue() != null && hotenGV_GT.getText().length() != 0) {
+            String name = hotenGV_GT.getText();
+            ArrayList<BaoCao> baoCaos = dbController.BaoCaoGT(name, hocKyBCTK.getValue());
+            if(baoCaos.size() != 0) {
+                maLopTableColumn.setText("Mã lớp");
+                cot2.setText("Trạng thái tổ chức");
+                cot3.setText("Trạng thái thanh toán");
+                baoCaoList =  FXCollections.observableList(baoCaos);
+                maLopTableColumn.setCellValueFactory(new PropertyValueFactory<BaoCao, Integer>("maLop"));
+                cot2.setCellValueFactory(new PropertyValueFactory<BaoCao, String>("cot2"));
+                cot3.setCellValueFactory(new PropertyValueFactory<BaoCao, String>("cot3"));
+                baoCaoTableView.setItems(baoCaoList);
+            } else {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText(null);
+                alert.setContentText("Tên giám thị không tồn tại ");
+                alert.showAndWait();
+            }
+        } else{
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Chưa nhập học kỳ hoặc chưa chọn loại thông tin hoặc họ tên giảng viên ");
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    BarChart<String, Number> barChart;
+    public void ThongKe(ActionEvent e) throws SQLException {
+        if(hocKyTK.getValue() != null) {
+            String tableName = "KinhPhi" + hocKyTK.getValue();
+            ArrayList<KinhPhi> list = dbController.kinhPhiList(tableName);
+            long inAn = 0, phoTo = 0, toChuc = 0, giamThi = 0;
+            for(var i : list) {
+                inAn += i.getInAn();
+                phoTo += i.getPhoTo();
+                toChuc += i.getToChucThi();
+                giamThi += i.getKinhPhiGT();
+            }
+            XYChart.Series<String, Number> chiPhi = new XYChart.Series<>();
+            XYChart.Data<String, Number> chiPhiInAn = new XYChart.Data<>("IN ẤN", inAn);
+            XYChart.Data<String, Number> chiPhiPhoTo = new XYChart.Data<>("PHÔ TÔ", phoTo);
+            XYChart.Data<String, Number> chiPhitoChuc = new XYChart.Data<>("CHI PHÍ TỔ CHỨC", toChuc);
+            XYChart.Data<String, Number> chiPhiGiamThi = new XYChart.Data<>("CHI PHÍ GIÁM THỊ", giamThi);
+            chiPhi.getData().addAll(chiPhiInAn, chiPhiPhoTo, chiPhitoChuc, chiPhiGiamThi);
+            chiPhi.setName("Thống kê các chi phí của cả học kỳ " + hocKyTK.getValue());
+            barChart.getData().clear();
+            barChart.getData().addAll(chiPhi);
+            for(var i : chiPhi.getData()) {
+                i.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("CHI PHÍ");
+                    alert.setHeaderText(null);
+                    alert.setContentText("TIỀN " + i.getXValue() + " : " + i.getYValue().longValue() + " VND");
+                    alert.showAndWait();
+                });
+            }
+        } else {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa nhập học kỳ");
+            alert.showAndWait();
+        }
+    }
 }

@@ -8,40 +8,55 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QLTTController">
+<AnchorPane prefHeight="552.0" prefWidth="732.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QLTTController">
    <children>
-      <Label layoutX="178.0" layoutY="21.0" text="Ứng dụng quản lý trông thi">
+      <Label fx:id="tx_TITLE" layoutX="184.0" layoutY="26.0" text="QUẢN LÝ TRÔNG THI">
          <font>
-            <Font name="System Bold" size="31.0" />
+            <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <Label layoutX="301.0" layoutY="136.0" prefHeight="37.0" prefWidth="134.0" text="Đăng nhập" textFill="#c72718" textOverrun="CENTER_ELLIPSIS">
+      <Label layoutX="214.0" layoutY="94.0" prefHeight="79.0" prefWidth="282.0" text="ĐĂNG NHẬP" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="45.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="222.0" text="Tài khoản" textFill="#d30808">
+      <Label layoutX="199.0" layoutY="221.0" text="Tài khoản" textFill="#008489">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="275.0" text="Mật khẩu" textFill="#d30808">
+      <Label layoutX="199.0" layoutY="274.0" text="Mật khẩu" textFill="#008489">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="328.0" text="Quyền" textFill="#d30808">
+      <Label layoutX="199.0" layoutY="327.0" text="Quyền" textFill="#008489">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" layoutX="275.0" layoutY="274.0" prefHeight="27.0" prefWidth="185.0" />
-      <TextField fx:id="userName" layoutX="275.0" layoutY="221.0" prefHeight="27.0" prefWidth="185.0" />
-      <ComboBox fx:id="entitle" layoutX="275.0" layoutY="327.0" prefHeight="27.0" prefWidth="185.0" />
-      <Button layoutX="326.0" layoutY="396.0" mnemonicParsing="false" onAction="#DangNhap" text="Đăng nhập">
+      <PasswordField fx:id="passwordField" layoutX="304.0" layoutY="275.0" prefHeight="27.0" prefWidth="207.0" promptText="Mật khẩu" styleClass="textField" text="1234" />
+      <TextField fx:id="userName" layoutX="304.0" layoutY="222.0" prefHeight="27.0" prefWidth="207.0" promptText="Tài khoản" styleClass="textField" text="tu123" />
+      <ComboBox fx:id="entitle" layoutX="304.0" layoutY="328.0" prefHeight="27.0" prefWidth="207.0" />
+      <Button layoutX="181.0" layoutY="431.0" mnemonicParsing="false" onAction="#DangNhap" prefHeight="14.0" prefWidth="171.0" style="-fx-background-radius: 30; -fx-background-color: #00676B; -fx-border-color: #00676B; -fx-border-radius: 30; -fx-border-width: 3;" stylesheets="@application.css" text="ĐĂNG NHẬP" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Button>
+      <Button layoutX="386.0" layoutY="431.0" mnemonicParsing="false" onAction="#DangNhap" prefHeight="44.0" prefWidth="143.0" style="-fx-background-color: #00A6AD; -fx-background-radius: 30; -fx-border-color: #00676B; -fx-border-radius: 30; -fx-border-width: 3;" text="ĐĂNG KÝ" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="217.0" layoutY="96.0" prefHeight="79.0" prefWidth="282.0" text="ĐĂNG NHẬP" textAlignment="CENTER" textFill="#00676b" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <Label fx:id="tx_TITLE1" layoutX="186.0" layoutY="27.0" text="QUẢN LÝ TRÔNG THI" textFill="#00676b">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

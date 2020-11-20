@@ -1,6 +1,7 @@
 package view;
 
 import controller.DataControler;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +16,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
+import javax.swing.text.Style;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -28,25 +32,35 @@ public class QLTTController implements Initializable {
     PasswordField passwordField;
     @FXML
     ComboBox<String> entitle;
+    //public static Stage stage;
     ObservableList<String> list= FXCollections.observableArrayList("Quan ly","Giảng viên","Giám thị");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         entitle.setItems(list);
+        entitle.setValue("Quan ly");
     }
+    public void Exit(){
+        System.exit(0);
+    }
+
     public void DangNhap(ActionEvent e) throws IOException {
-        DataControler dataControler=new DataControler();
-        String s= entitle.getValue();
-        if(dataControler.isValidTK(userName.getText(),passwordField.getText(), s) && s=="Quan ly"){
-            Stage stage =(Stage) ((Node)e.getSource()).getScene().getWindow();
+        DataControler dataControler = new DataControler();
+        String s = entitle.getValue();
+        if(dataControler.isValidTK(userName.getText(),passwordField.getText(), s) && s.equals("Quan ly")){
+//            QLTT.stage =(Stage) ((Node)e.getSource()).getScene().getWindow();
+//            QLTT.stage = new Stage();
+            QLTT.stage.setX(100);
+            QLTT.stage.setY(15);
             FXMLLoader loader=new FXMLLoader();
             loader.setLocation(getClass().getResource("QTVSample.fxml"));
-            Parent parent=loader.load();
-            Scene scene=new Scene(parent);
-            //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setTitle("Quản lý ");
-            stage.show();
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            QLTT.stage.setScene(scene);
+            QLTT.stage.setTitle("Quản lý ");
+
+            QLTT.stage.show();
             userName.setText(entitle.getValue());
         }else{
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
