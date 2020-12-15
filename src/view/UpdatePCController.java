@@ -1,25 +1,29 @@
 package view;
 
 import controller.DBConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.InfoTrongThi;
-import org.apache.poi.ss.util.SSCellRange;
 
 import java.io.IOException;
-import java.security.PublicKey;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ResourceBundle;
 
-public class UpdatePCController {
+public class UpdatePCController implements Initializable {
     private InfoTrongThi trongThi;
     @FXML
     TextField maLop;
@@ -32,7 +36,8 @@ public class UpdatePCController {
     @FXML
     TextField kipThi;
     @FXML
-    TextField hocKy;
+    ComboBox<String> hocKy;
+    ObservableList<String>  list = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
 
     public void setTrongThi(InfoTrongThi trongThi){
         this.trongThi=trongThi;
@@ -44,9 +49,9 @@ public class UpdatePCController {
     }
 
     public void Update(ActionEvent e) throws SQLException {
-        if(hocKy.getText().length() != 0 ){
-            String tableName="PhanCong" + hocKy.getText();
-            if(maLop.getText().length()!=0 && giamThi1.getText().length() != 0 && giamThi2.getText().length() != 0 && ngayThi.getText().length() != 0 && kipThi.getText().length() != 0){
+        try{
+            if(hocKy.getValue().length() != 0 ){
+                String tableName="PhanCong" + hocKy.getValue();
                 String sql="Update "+tableName+ " set maLop=? , giamThi1=? ,giamThi2=?,ngayThi=?,kipThi=? where maLop=? and giamThi1=? and giamThi2=? and ngayThi=? and kipThi=?";
                 var prepare=new DBConnection().getConnection().prepareStatement(sql);
                 prepare.setInt(1, Integer.parseInt(maLop.getText()));
@@ -60,7 +65,7 @@ public class UpdatePCController {
                 prepare.setDate(9, java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(trongThi.getNgayThi())));
                 prepare.setString(10,kipThi.getText());
                 var res=prepare.executeUpdate();
-                if(res>0){
+                if(res > 0){
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText(null);
@@ -77,24 +82,31 @@ public class UpdatePCController {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
-                alert.setContentText("Bạn hãy nhập đầy đủ các thông tin");
+                alert.setContentText("Bạn hãy nhập học kỳ");
                 alert.showAndWait();
             }
-        }else{
+        } catch (Exception ex) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
-            alert.setContentText("Bạn hãy nhập học kỳ");
+            alert.setContentText("Bạn hãy nhập học kỳ hoặc chưa đầy đủ các thông tin hoặc chưa đúng định dạng");
             alert.showAndWait();
         }
     }
     public void back(ActionEvent e) throws IOException {
         Stage stage=(Stage) ((Node)e.getSource()).getScene().getWindow();
+        stage.setX(100);
+        stage.setY(15);
         FXMLLoader loader=new FXMLLoader();
         loader.setLocation(getClass().getResource("QTVSample.fxml"));
         Parent parent=loader.load();
         Scene scene=new Scene(parent);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        hocKy.setItems(list);
     }
 }

@@ -1,0 +1,6 @@
+#pane{
+     ...
+    -fx-background-image: url("C:\Users\dovan\IdeaProjects\QuanLyTrongThi\src\view\img\thanhpho1.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left bottom;
+}

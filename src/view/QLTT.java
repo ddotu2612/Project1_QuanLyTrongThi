@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import java.io.IOException;
 
 public class QLTT extends Application {
@@ -23,9 +20,12 @@ public class QLTT extends Application {
         Parent parent = FXMLLoader.load(getClass().getResource("QLTTSample.fxml"));
         Scene scene = new Scene(parent);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        //scene.getStylesheets().add(this.getClass().getResource("nen.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Quản lý trông thi học kỳ");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("./icon/icon.png")));
         stage.show();
+    }
+    public static class DKController {
     }
 }

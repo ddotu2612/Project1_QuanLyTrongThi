@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="412.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DetailController">
+   <children>
+      <Label layoutX="51.0" layoutY="14.0" prefHeight="31.0" prefWidth="183.0" text="Chi tiết chi phí cho mã lớp ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="maLopDetail" layoutX="237.0" layoutY="14.0" prefHeight="31.0" prefWidth="46.0" />
+      <TextArea fx:id="textAreaDetail" layoutX="45.0" layoutY="53.0" prefHeight="290.0" prefWidth="267.0" />
+      <Button layoutX="91.0" layoutY="367.0" mnemonicParsing="false" onAction="#ThanhToan" prefHeight="31.0" prefWidth="194.0" text="Thanh toán">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="hocKy" layoutX="296.0" layoutY="14.0" prefHeight="31.0" prefWidth="59.0" />
+      <Label layoutX="276.0" layoutY="21.0" prefHeight="17.0" prefWidth="14.0" text="-" />
+   </children>
+</AnchorPane>

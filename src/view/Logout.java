@@ -14,6 +14,8 @@ public class Logout {
     // XỬ LÝ THOÁT ĐĂNG NHẬP CHO QUẢN TRỊ VIÊN
     public void Excute_Logout() throws IOException {
         QLTT.stage.close();
+        QLTT.stage.setX(400);
+        QLTT.stage.setY(65);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(".\\QLTTSample.fxml"));
         Parent parent = loader.load();
