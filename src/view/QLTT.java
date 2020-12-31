@@ -20,10 +20,9 @@ public class QLTT extends Application {
         Parent parent = FXMLLoader.load(getClass().getResource("QLTTSample.fxml"));
         Scene scene = new Scene(parent);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        //scene.getStylesheets().add(this.getClass().getResource("nen.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Quản lý trông thi học kỳ");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("./icon/icon.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream(".\\icon\\Manage.png")));
         stage.show();
     }
     public static class DKController {

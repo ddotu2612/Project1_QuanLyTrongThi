@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="412.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DetailController">
+<AnchorPane prefHeight="412.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DetailController">
    <children>
       <Label layoutX="51.0" layoutY="14.0" prefHeight="31.0" prefWidth="183.0" text="Chi tiết chi phí cho mã lớp ">
          <font>

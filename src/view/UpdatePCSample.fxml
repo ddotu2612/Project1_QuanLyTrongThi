@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="392.0" prefWidth="404.0" style="-fx-background-color: #A0A0A0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UpdatePCController">
+<AnchorPane prefHeight="392.0" prefWidth="404.0" style="-fx-background-color: #A0A0A0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdatePCController">
    <children>
       <Label layoutX="68.0" layoutY="1.0" text="Sửa thông tin phân công trông thi" textFill="#e1be11">
          <font>
@@ -49,8 +49,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="102.0" layoutY="336.0" mnemonicParsing="false" onAction="#Update" text="Update" />
-      <Button layoutX="233.0" layoutY="336.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button layoutX="143.0" layoutY="343.0" mnemonicParsing="false" onAction="#Update" prefHeight="35.0" prefWidth="163.0" text="Update">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
+         </font></Button>
       <ComboBox fx:id="hocKy" layoutX="184.0" layoutY="286.0" prefHeight="25.0" prefWidth="80.0" />
    </children>
 </AnchorPane>

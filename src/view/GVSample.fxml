@@ -4,10 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="498.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GVController">
+<AnchorPane prefHeight="498.0" prefWidth="933.0" style="-fx-background-color: #ECECEC;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GVController">
    <children>
       <GridPane layoutX="4.0" prefHeight="499.0" prefWidth="932.0">
         <columnConstraints>
@@ -26,36 +29,37 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints />
-          <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="55.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="479.3333435058594" minHeight="10.0" prefHeight="429.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="71.0" minHeight="8.666656494140625" prefHeight="12.666656494140625" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="35.0" prefWidth="352.0" text="Thông tin giảng viên/giám thị" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label prefHeight="35.0" prefWidth="352.0" text="Thông tin giảng viên/giám thị" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Arial Bold" size="24.0" />
                </font>
                <GridPane.margin>
                   <Insets left="3.0" right="3.0" />
                </GridPane.margin>
             </Label>
-            <GridPane prefHeight="363.0" prefWidth="213.0" style="-fx-border-color: black;" GridPane.rowIndex="2">
+            <GridPane prefHeight="363.0" prefWidth="213.0" style="-fx-border-color: black;" GridPane.rowIndex="3">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="106.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="166.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="132.0" minHeight="0.0" prefHeight="55.33332824707031" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="402.66666412353516" minHeight="10.0" prefHeight="329.6666717529297" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="402.66666412353516" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="402.66666412353516" minHeight="10.0" prefHeight="311.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="402.66666412353516" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="26.0" prefWidth="207.0" text="Thông tin lớp giảng dạy" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <Label prefHeight="26.0" prefWidth="203.0" text="Thông tin lớp giảng dạy" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="lopTable" prefHeight="329.0" prefWidth="259.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <TableView fx:id="lopTable" prefHeight="303.0" prefWidth="255.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="maLopColumn" prefWidth="69.0" text="Mã lớp" />
                       <TableColumn fx:id="chiPhiColumn" minWidth="0.0" prefWidth="83.66665649414062" text="Chi phí" />
@@ -65,11 +69,22 @@
                         <Insets left="10.0" right="5.0" />
                      </GridPane.margin>
                   </TableView>
-                  <Button fx:id="btnXemThongTin" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Xem thông tin" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <Button fx:id="btnXemThongTin" mnemonicParsing="false" prefHeight="35.0" prefWidth="133.0" style="-fx-background-radius: 25;" text="        Xem thông tin" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="75.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font name="Bodoni MT Bold" size="13.0" />
+                     </font>
                   </Button>
+                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="75.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@img/information.png" />
+                     </image>
+                  </ImageView>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -78,9 +93,10 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <GridPane prefHeight="417.0" prefWidth="247.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane prefHeight="417.0" prefWidth="247.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.0" minWidth="10.0" prefWidth="288.0" />
+                  <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
                   <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
               </columnConstraints>
               <rowConstraints>
@@ -156,11 +172,22 @@
                               <TextField fx:id="emailGT" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <TextField fx:id="phongGT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Spinner fx:id="soBuoiGT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" onAction="#DangKy" prefHeight="25.0" prefWidth="122.0" text="Đăng ký" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                              <Button mnemonicParsing="false" onAction="#DangKy" prefHeight="25.0" prefWidth="122.0" text="     Đăng ký" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="20.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
                               </Button>
+                              <ImageView fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                                 <image>
+                                    <Image url="@img/result.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                            <VBox.margin>
                               <Insets left="13.0" right="-50.0" />
@@ -191,7 +218,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </GridPane>
-            <VBox prefHeight="458.0" prefWidth="260.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <VBox prefHeight="458.0" prefWidth="260.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
                   <Label prefHeight="34.0" prefWidth="237.0" text="Thông tin cá nhân">
                      <font>
@@ -311,21 +338,21 @@
                               <Insets right="15.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="matKhauCN" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <PasswordField fx:id="matKhauCN" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets right="15.0" />
                            </GridPane.margin>
-                        </TextField>
+                        </PasswordField>
                      </children>
                   </GridPane>
                   <HBox prefHeight="61.0" prefWidth="261.0">
                      <children>
-                        <Button fx:id="suaThongTin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="191.0" text="Sửa thông tin" textAlignment="CENTER">
+                        <Button fx:id="suaThongTin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="170.0" style="-fx-background-radius: 25;" text="      Sửa thông tin" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets bottom="10.0" left="30.0" right="20.0" top="10.0" />
+                              <Insets bottom="10.0" left="40.0" right="20.0" top="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -335,7 +362,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Label prefHeight="26.0" prefWidth="71.0" text="Học kỳ">
                      <font>
@@ -352,16 +379,32 @@
                   </ComboBox>
                </children>
             </HBox>
-            <Label prefHeight="25.0" prefWidth="90.0" text="Tên giảng viên" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label prefHeight="25.0" prefWidth="90.0" text="Tên giảng viên" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="tenGiangVien" prefHeight="35.0" prefWidth="117.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="tenGiangVien" prefHeight="35.0" prefWidth="117.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="100.0" right="5.0" />
                </GridPane.margin>
             </TextField>
+            <Label fx:id="gvDangXuat" prefHeight="17.0" prefWidth="82.0" text="Đăng xuất" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="190.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView fitHeight="38.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="45.0" right="40.0" top="352.0" />
+               </GridPane.margin>
+               <image>
+                  <Image url="@img/update.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </children>

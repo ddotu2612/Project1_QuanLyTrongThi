@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="308.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QLTTController">
+<AnchorPane fx:id="anchorpane" prefHeight="308.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QLTTController">
    <children>
       <GridPane layoutX="-6.0" layoutY="-5.0" prefHeight="374.0" prefWidth="707.0">
         <columnConstraints>
@@ -79,7 +79,7 @@
             </Pane>
             <Pane prefHeight="391.0" prefWidth="273.0" style="-fx-background-color: #3399FF;">
                <children>
-                  <Label fx:id="tx_TITLE" layoutX="59.0" layoutY="24.0" prefHeight="46.0" prefWidth="206.0" text="QUẢN LÝ TRÔNG THI" textFill="#eee9e9">
+                  <Label fx:id="tx_TITLE" layoutX="59.0" layoutY="24.0" prefHeight="46.0" prefWidth="206.0" text="QUẢN LÝ TỔ CHỨC " textFill="#eee9e9">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -94,6 +94,11 @@
                         <Image url="@img/write.png" />
                      </image>
                   </ImageView>
+                  <Label layoutX="87.0" layoutY="61.0" prefHeight="30.0" prefWidth="128.0" text="TRÔNG THI" textFill="#eee9e9">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
