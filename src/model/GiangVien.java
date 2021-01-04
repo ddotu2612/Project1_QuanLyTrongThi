@@ -1,21 +1,31 @@
 package model;
 
-public class Supervisor {
+public class Lecturers {
     private String nameLecturer;
     private String faculty;
     private String phoneNumber;
     private String email;
     private String workPlace;
+    private int maLop;
 
-    public Supervisor() {
+    public Lecturers() {
+    }
+    public Lecturers(Lecturers l) { // Constructor sao chep
+        this.nameLecturer = l.nameLecturer;
+        this.faculty = l.faculty;
+        this.phoneNumber = l.phoneNumber;
+        this.email = l.email;
+        this.workPlace = l.workPlace;
+        this.maLop = l.maLop;
     }
 
-    public Supervisor(String nameLecturer, String faculty, String phoneNumber, String email, String workPlace) {
+    public Lecturers(String nameLecturer, String faculty, String phoneNumber, String email, String workPlace, int maLop) {
         this.nameLecturer = nameLecturer;
         this.faculty = faculty;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.workPlace = workPlace;
+        this.maLop = maLop;
     }
 
     public String getNameLecturer() {
@@ -56,5 +66,13 @@ public class Supervisor {
 
     public void setWorkPlace(String workPlace) {
         this.workPlace = workPlace;
+    }
+
+    public int getMaLop() {
+        return maLop;
+    }
+
+    public void setMaLop(int maLop) {
+        this.maLop = maLop;
     }
 }

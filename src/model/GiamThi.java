@@ -1,23 +1,31 @@
 package model;
 
-public class Lecturers {
+public class Supervisor {
     private String nameLecturer;
     private String faculty;
     private String phoneNumber;
     private String email;
     private String workPlace;
-    private int maLop;
+    private int soBuoiToiDa;
 
-    public Lecturers() {
+    public Supervisor() {
     }
 
-    public Lecturers(String nameLecturer, String faculty, String phoneNumber, String email, String workPlace, int maLop) {
+    public int getSoBuoiToiDa() {
+        return soBuoiToiDa;
+    }
+
+    public void setSoBuoiToiDa(int soBuoiToiDa) {
+        this.soBuoiToiDa = soBuoiToiDa;
+    }
+
+    public Supervisor(String nameLecturer, String faculty, String phoneNumber, String email, String workPlace, int soBuoiToiDa) {
         this.nameLecturer = nameLecturer;
         this.faculty = faculty;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.workPlace = workPlace;
-        this.maLop = maLop;
+        this.soBuoiToiDa =soBuoiToiDa;
     }
 
     public String getNameLecturer() {
@@ -58,13 +66,5 @@ public class Lecturers {
 
     public void setWorkPlace(String workPlace) {
         this.workPlace = workPlace;
-    }
-
-    public int getMaLop() {
-        return maLop;
-    }
-
-    public void setMaLop(int maLop) {
-        this.maLop = maLop;
     }
 }

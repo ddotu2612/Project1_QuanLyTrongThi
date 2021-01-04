@@ -928,7 +928,7 @@
                                     <Insets left="260.0" />
                                  </GridPane.margin>
                                  <image>
-                                    <Image url="@img/supervisor.png" />
+                                    <Image url="@img/giamThi.png" />
                                  </image>
                               </ImageView>
                            </children>

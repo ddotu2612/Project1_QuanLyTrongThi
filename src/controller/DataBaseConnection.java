@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static DBConnection instance=new DBConnection();
-    public DBConnection(){
+    private DBConnection(){
 
     }
     public static DBConnection getInstance(){
@@ -15,7 +15,7 @@ public class DBConnection {
 
     public Connection getConnection(){
         Connection conn=null;
-        String url="jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyTT;user=sa;password=1234;";
+        String url="jdbc:sqlserver://localhost:1433;DatabaseName = QuanLyTT;user=sa;password=1234;";
         try {
             conn= DriverManager.getConnection(url);
         } catch (SQLException e) {
