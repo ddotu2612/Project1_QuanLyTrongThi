@@ -1,24 +1,25 @@
-package controller.lichthicontroller;
+package controller.qtvcontroller.lichthicontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import model.TestSchedule;
+import model.LichThi;
 import view.alert.Error;
 import view.alert.Information;
 import view.alert.Warning;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ThemLichThi {
-    DBConnection conn = new DBConnection();
-    DBController dbController = new DBController();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
     public void ThemLich(ComboBox<String> hocKyLT, TextField maLopTextField, TextField maHPTextField,
                          TextField tenHPTextField, TextField ghiChuTextField, TextField nhomTextField, TextField dotMoTextField,
@@ -26,7 +27,7 @@ public class ThemLichThi {
        DatePicker ngayThiLT) throws SQLException, ParseException {
         if(hocKyLT.getValue().length() !=0){
             String tableName = "LichThi" + hocKyLT.getValue();
-            if(dataControler.isCheckDataLock(tableName) && dbController.checkExistTable(tableName)){
+            if(dataControler.isCheckDataLock(tableName) && dataBaseController.checkExistTable(tableName)){
                 int maLop=Integer.parseInt(maLopTextField.getText());
                 String maHP=maHPTextField.getText();
                 String tenHP=tenHPTextField.getText();
@@ -41,10 +42,10 @@ public class ThemLichThi {
                 String kip = kipTextField.getText();
                 int SLDK= Integer.parseInt(sldkTextField.getText());
                 String phong=phongTextField.getText();
-                TestSchedule testSchedule=new TestSchedule(maLop,maHP,tenHP,ghiChu,nhom,dotMo,tuan,thu,ngayThi,kip,SLDK,phong);
-                boolean check=dataControler.isValidTestSchedule(testSchedule,tableName);//Kiểm tra xem lịch đã đc thêm vào hay chưa
+                LichThi lichThi =new LichThi(maLop,maHP,tenHP,ghiChu,nhom,dotMo,tuan,thu,ngayThi,kip,SLDK,phong);
+                boolean check=dataControler.isValidTestSchedule(lichThi,tableName);//Kiểm tra xem lịch đã đc thêm vào hay chưa
                 if(check){
-                    if(dbController.addTestScheduleToDatabase(testSchedule,tableName)) {
+                    if(dataBaseController.addTestScheduleToDatabase(lichThi,tableName)) {
                         Information.ThongBaoThongTin("Bạn đã thêm lịch thi thành công");
                     }else {
                         Error.ThongBaoLoi("Lịch thi chưa được thêm thành công");

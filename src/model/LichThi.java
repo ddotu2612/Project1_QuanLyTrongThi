@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class TestSchedule {
+public class LichThi {
     private int maLop;
     private String maHP;
     private String tenHP;
@@ -16,12 +16,12 @@ public class TestSchedule {
     private int SLDK;
     private String phong;
 
-    public TestSchedule() {
+    public LichThi() {
     }
 
-    public TestSchedule(int maLop, String maHP, String tenHP, String ghiChu,
-                        String nhom, String dotMo, String tuan, String thu,
-                        Date ngayThi, String kip, int SLDK, String phong) {
+    public LichThi(int maLop, String maHP, String tenHP, String ghiChu,
+                   String nhom, String dotMo, String tuan, String thu,
+                   Date ngayThi, String kip, int SLDK, String phong) {
         this.maLop = maLop;
         this.maHP = maHP;
         this.tenHP = tenHP;

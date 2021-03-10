@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnection {
-    private static DBConnection instance=new DBConnection();
-    private DBConnection(){
+public class DataBaseConnection {
+    private static DataBaseConnection instance=new DataBaseConnection();
+    private DataBaseConnection(){
 
     }
-    public static DBConnection getInstance(){
+    public static DataBaseConnection getInstance(){
         return instance;
     }
 

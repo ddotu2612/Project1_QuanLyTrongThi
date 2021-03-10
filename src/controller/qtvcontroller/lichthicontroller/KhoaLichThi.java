@@ -1,7 +1,7 @@
-package controller.lichthicontroller;
+package controller.qtvcontroller.lichthicontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
 import javafx.scene.control.ComboBox;
 import view.alert.Error;
@@ -11,11 +11,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class KhoaLichThi {
-    DBController dbController = new DBController();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
-    Connection conn = DBConnection.getInstance().getConnection();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
     public void Khoa(ComboBox<String> hocKyLT) throws SQLException {
-        if(hocKyLT.getValue().length() != 0 && dataControler.isCheckDataLock("LichThi" + hocKyLT.getValue()) && dbController.checkExistTable("LichThi" + hocKyLT.getValue())){
+        if(hocKyLT.getValue().length() != 0 && dataControler.isCheckDataLock("LichThi" + hocKyLT.getValue()) && dataBaseController.checkExistTable("LichThi" + hocKyLT.getValue())){
             String tableName = "LichThi" + hocKyLT.getValue();
             String sql="insert into dbo.LockData values(?,?) ;";
             var prepare=conn.prepareStatement(sql) ;

@@ -1,6 +1,6 @@
-package controller.lichthicontroller;
-import controller.DBConnection;
-import controller.DBController;
+package controller.qtvcontroller.lichthicontroller;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -22,15 +22,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TaoLichThi {
-    private DBController dbController = new DBController();
+    private DataBaseController dataBaseController = new DataBaseController();
     private DataControler dataControler = new DataControler();
-    Connection conn = DBConnection.getInstance().getConnection();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
 
     public void TaoLich(ComboBox<String> hocKyLT, AnchorPane testScheduleAnchorPane) throws SQLException, IOException {
         final int MAX_ROW = 1000000;
         final int MIN_COLUMN = 12;
         final int START_ROW = 2;
-        if(hocKyLT.getValue().length() != 0 && !dbController.checkExistTable("LichThi" + hocKyLT.getValue())){
+        if(hocKyLT.getValue().length() != 0 && !dataBaseController.checkExistTable("LichThi" + hocKyLT.getValue())){
             String tableName = "LichThi" + hocKyLT.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 //choose a file excel
@@ -44,6 +44,7 @@ public class TaoLichThi {
                     sourceFile = file.getPath();
                 }
                 String sheetName = "LichThi" + hocKyLT.getValue();
+
                 //read file excel
                 FileInputStream fileInputStream=new FileInputStream(sourceFile);
                 XSSFWorkbook workbook=new XSSFWorkbook(fileInputStream);

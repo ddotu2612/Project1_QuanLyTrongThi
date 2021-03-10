@@ -8,12 +8,12 @@ public class KinhPhi {
     private long toChucThi;
     private long kinhPhiGT;
     private int checkThanhToan;
-    private String ghiChu;
+    private String nhom;
 
     public KinhPhi() {
     }
 
-    public KinhPhi(int maLop, String tenGV, long inAn, long phoTo, long toChucThi, long kinhPhiGT, int checkThanhToan,String ghiChu) {
+    public KinhPhi(int maLop, String tenGV, long inAn, long phoTo, long toChucThi, long kinhPhiGT, int checkThanhToan,String nhom) {
         this.maLop = maLop;
         this.tenGV = tenGV;
         this.inAn = inAn;
@@ -21,7 +21,7 @@ public class KinhPhi {
         this.toChucThi = toChucThi;
         this.kinhPhiGT = kinhPhiGT;
         this.checkThanhToan = checkThanhToan;
-        this.ghiChu=ghiChu;
+        this.nhom=nhom;
     }
 
     public int getMaLop() {
@@ -80,11 +80,7 @@ public class KinhPhi {
         this.checkThanhToan = checkThanhToan;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public String getNhom() {
+        return nhom;
     }
 }

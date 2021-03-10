@@ -1,9 +1,8 @@
-package controller.giaoviencontroller;
+package controller.qtvcontroller.giaoviencontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -25,12 +24,12 @@ import java.sql.SQLException;
 
 public class TaoThongTinGV {
     //connect to database
-    Connection conn = DBConnection.getInstance().getConnection();
-    DBController dbController = new DBController();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
     public void TaoTT(ComboBox<String> hocKyGV, AnchorPane lecturerAnchorPane) throws IOException, SQLException {
         final int MAX_ROW=1000000;
-        if(hocKyGV.getValue().length() !=0  && !dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+        if(hocKyGV.getValue().length() !=0  && !dataBaseController.checkExistTable("GiangVien" + hocKyGV.getValue())){
             String tableName = "GiangVien" + hocKyGV.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 //choose a file excel

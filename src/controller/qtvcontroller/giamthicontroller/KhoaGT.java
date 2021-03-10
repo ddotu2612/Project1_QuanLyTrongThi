@@ -1,9 +1,8 @@
-package controller.giamthicontroller;
+package controller.qtvcontroller.giamthicontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import view.alert.Error;
 import view.alert.Information;
@@ -13,11 +12,11 @@ import java.sql.SQLException;
 
 public class KhoaGT {
     static DataControler dataControler = new DataControler();
-    static DBController dbController = new DBController();
-    static Connection conn = DBConnection.getInstance().getConnection();
+    static DataBaseController dataBaseController = new DataBaseController();
+    static Connection conn = DataBaseConnection.getInstance().getConnection();
     public static void Khoa(ComboBox<String> hocKyGT) throws SQLException {
         if(hocKyGT.getValue().length() != 0 && dataControler.isCheckDataLock("GiamThi" + hocKyGT.getValue())
-                && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+                && dataBaseController.checkExistTable("GiamThi" + hocKyGT.getValue())){
             String tableName = "GiamThi" + hocKyGT.getValue();
             String sql="insert into dbo.LockData values(?,?) ;";
             var prepare=conn.prepareStatement(sql) ;

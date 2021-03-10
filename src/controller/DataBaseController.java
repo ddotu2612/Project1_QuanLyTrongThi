@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DBController {
+public class DataBaseController {
     //Kiểm tra sự tồn tại của một bảng bất kỳ
     public boolean checkExistTable(String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String query = "SELECT COUNT(*) dem FROM information_schema.tables WHERE table_schema='dbo' AND table_name = '" + tableName+ "'";
         var prepare=conn.prepareStatement(query);
         var rs=prepare.executeQuery();
@@ -25,7 +25,7 @@ public class DBController {
     public ArrayList<LichThi> testScheduleList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<LichThi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName;
         PreparedStatement prepare = null;
         try {
@@ -54,7 +54,7 @@ public class DBController {
     }
     //Thêm một lịch thi đơn vào database
     public boolean addTestScheduleToDatabase(LichThi lichThi, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         var prepare=conn.prepareStatement(sql);
         prepare.setInt(1, lichThi.getMaLop());
@@ -75,7 +75,7 @@ public class DBController {
     }
     //Update lịch thi vào database
     public boolean updateTestScheduleToDatabase(String tableName, LichThi lichThi, LichThi lichThi1) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="UPDATE "+tableName+" SET maLop=?,maHP=?,tenHP=?,ghiChu=?,nhom=?,dotMo=?,tuan=?,thu=?,ngayThi=?,kip=?,SLDK=?,phong=?"+
                 " where maLop=? and maHP=? and tenHP=? and ghiChu=? and nhom=? and dotMo=? and tuan=? and thu=? and ngayThi=? and kip=? and SLDK=? and phong=? ";
         var prepare=conn.prepareStatement(sql);
@@ -110,7 +110,7 @@ public class DBController {
     //Tìm kiếm thông tin lịch thi
     public ArrayList<LichThi> searchTestScheduleFromDatabase(int maLop, String tableName) throws SQLException {
         ArrayList<LichThi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName+" where maLop= ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setInt(1,maLop);
@@ -135,7 +135,7 @@ public class DBController {
     }
     //Xóa một lịch thi trong danh sách
     public boolean deleteTestScheduleFromDatabase(LichThi lichThi, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="delete from "+tableName+" where maLop=? and maHP=? and tenHP=? and ghiChu=? and nhom=? and dotMo=? and tuan=? and thu=? and ngayThi=? and kip=? and SLDK=? and phong=? ";
         var prepare=conn.prepareStatement(sql);
         prepare.setInt(1, lichThi.getMaLop());
@@ -162,7 +162,7 @@ public class DBController {
     public ArrayList<GiangVien> lecturerList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<GiangVien> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName;
         PreparedStatement prepare = null;
         try {
@@ -185,7 +185,7 @@ public class DBController {
     }
 
     public boolean addLecturerToDatabase(GiangVien giangVien, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giangVien.getNameLecturer());
@@ -200,7 +200,7 @@ public class DBController {
     }
 
     public boolean updateeLecturerToDatabase(String tableName, GiangVien giangVien, GiangVien giangVien1) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="UPDATE "+tableName+" SET hoTen=? ,boMon=?,phone=?,email=?,phong=?,maLop=? where hoTen=? and boMon=? and phone=? and email=? and phong=? and maLop=?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giangVien1.getNameLecturer());
@@ -222,9 +222,9 @@ public class DBController {
     }
 
     public ArrayList<GiangVien> searchLecturerFromDatabase(String hoTen, String tableName) throws SQLException {
-        if(!new DBController().checkExistTable(tableName)) return null;
+        if(!new DataBaseController().checkExistTable(tableName)) return null;
         ArrayList<GiangVien> list = new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName + " where hoTen = ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1,hoTen);
@@ -243,7 +243,7 @@ public class DBController {
     }
 
     public boolean deleteLecturerFromDatabase(GiangVien giangVien, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="delete from "+tableName+" where  hoTen=? and boMon=? and phone=? and email=? and phong=? and maLop=? ";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giangVien.getNameLecturer());
@@ -260,7 +260,7 @@ public class DBController {
     public ArrayList<GiamThi> supervisorList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<GiamThi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName;
         PreparedStatement prepare ;
         try {
@@ -283,7 +283,7 @@ public class DBController {
     }
 
     public boolean addSupervisorToDatabase(GiamThi giamThi, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?)";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giamThi.getNameLecturer());
@@ -298,7 +298,7 @@ public class DBController {
     }
 
     public boolean updateeSupervisorToDatabase(String tableName, GiamThi giamThi, GiamThi giamThi1) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="UPDATE "+tableName+" SET hoTen=? ,boMon=?,phone=?,email=?,phong=?,soBuoi = ? where hoTen=? and boMon=? and phone=? and email=? and phong=? and soBuoi = ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giamThi1.getNameLecturer());
@@ -321,7 +321,7 @@ public class DBController {
     public GiamThi searchSupervisorFromDatabase(String hoTen, String tableName) throws SQLException {
         //ArrayList<Supervisor> list=new ArrayList<>();
         GiamThi giamThi =null;
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName+" where hoTen= ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1,hoTen);
@@ -339,7 +339,7 @@ public class DBController {
     }
 
     public boolean deleteSupervisorFromDatabase(GiamThi giamThi, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="delete from "+tableName+" where  hoTen=? and boMon=? and phone=? and email=? and phong=? and soBuoi = ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, giamThi.getNameLecturer());
@@ -355,7 +355,7 @@ public class DBController {
 
     public void addPhanCong(LichThi lichThi, ArrayList<GiamThi> list, String tableNamePhanCong) throws SQLException {
         String sql="insert into "+ tableNamePhanCong+" values (? , ? , ? , ?, ?)";
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         var prepare= conn.prepareStatement(sql);
         if(list.size() == 1){
             prepare.setInt(1, lichThi.getMaLop());
@@ -377,7 +377,7 @@ public class DBController {
     public ArrayList<ThongTinTrongThi> trongThiList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<ThongTinTrongThi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName;
         PreparedStatement prepare ;
         prepare = conn.prepareStatement(sql);
@@ -397,7 +397,7 @@ public class DBController {
 
     public ArrayList<ThongTinTrongThi> searchInfoTrongThiFromDatabase(int maLop, String tableName) throws SQLException {
         ArrayList<ThongTinTrongThi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName+" where maLop= ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setInt(1,maLop);
@@ -419,7 +419,7 @@ public class DBController {
     public ArrayList<DonGia> donGiaList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<DonGia> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName;
         PreparedStatement prepare ;
         try {
@@ -439,9 +439,9 @@ public class DBController {
 //Quan ly kinh phi
     public ArrayList<KinhPhi> kinhPhiList(String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
-        ArrayList<KinhPhi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
-        String sql="select * from "+tableName;
+        ArrayList<KinhPhi> list = new ArrayList<>();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
+        String sql = "select * from " + tableName;
         PreparedStatement prepare ;
         try {
             prepare = conn.prepareStatement(sql);
@@ -465,7 +465,7 @@ public class DBController {
     }
 
     public boolean addDonGia(String tenDonGia, long gia, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         if(!checkExistTable(tableName)){
             String sql="create table "+tableName+" (tenDonGia nvarchar(50),gia bigint);";
             var prepare= conn.prepareStatement(sql);
@@ -483,7 +483,7 @@ public class DBController {
 
     public boolean updateDonGia(DonGia donGia, DonGia donGia1, String tableName) throws SQLException {
         if(!donGia.getTenDonGia().equals(donGia1.getTenDonGia())) return false;
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="UPDATE " + tableName + " SET tenDonGia = ? , gia = ? where tenDonGia = ? and gia = ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1,donGia1.getTenDonGia());
@@ -496,7 +496,7 @@ public class DBController {
     }
 
     public String searchNameLecturer(int maLop, String tableName) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName+" where maLop=? ";
         var prepare= conn.prepareStatement(sql);
         prepare.setInt(1,maLop);
@@ -506,7 +506,7 @@ public class DBController {
     }
 
     public long getGia(String tenDonGia, String tableNameDG) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select gia from " +tableNameDG+" where tenDonGia=?";
         var prepare= conn.prepareStatement(sql);
         prepare.setString(1,tenDonGia);
@@ -516,7 +516,7 @@ public class DBController {
     }
 
     public boolean addKinhPhi(KinhPhi kinhPhi, String tableNameKP) throws SQLException {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="insert into "+tableNameKP+ " values(?,?,?,?,?,?,?,?);";
         var prepare= conn.prepareStatement(sql);
         prepare.setInt(1,kinhPhi.getMaLop());
@@ -535,7 +535,7 @@ public class DBController {
     public ArrayList<KinhPhi> searchKinhPhiList(int maLop, String tableName) throws SQLException {
 
         ArrayList<KinhPhi> list=new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from "+tableName+" where maLop=?";
         PreparedStatement prepare ;
         prepare = conn.prepareStatement(sql);
@@ -560,7 +560,7 @@ public class DBController {
     public ArrayList<BaoCao> BaoCaoGV(String name, String tableName) throws SQLException {
         if(!checkExistTable(tableName)) return null;
         ArrayList<BaoCao> list = new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql = "select * from " + tableName + " where tenGV = ?";
         PreparedStatement prepare ;
         try {
@@ -587,7 +587,7 @@ public class DBController {
         String tableName = "PhanCong" + hocKy;
         if(!checkExistTable(tableName)) return null;
         ArrayList<BaoCao> list = new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DataBaseConnection.getInstance().getConnection();
         String sql="select * from " + tableName + " where giamThi1 = ? or giamThi2 = ?";
         var prepare=conn.prepareStatement(sql);
         prepare.setString(1, name);

@@ -5,43 +5,103 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.QLTTController">
+<AnchorPane fx:id="anchorpane" prefHeight="308.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QLTTController">
    <children>
-      <Label layoutX="178.0" layoutY="21.0" text="Ứng dụng quản lý trông thi">
-         <font>
-            <Font name="System Bold" size="31.0" />
-         </font>
-      </Label>
-      <Label layoutX="301.0" layoutY="136.0" prefHeight="37.0" prefWidth="134.0" text="Đăng nhập" textFill="#c72718" textOverrun="CENTER_ELLIPSIS">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="150.0" layoutY="222.0" text="Tài khoản" textFill="#d30808">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="150.0" layoutY="275.0" text="Mật khẩu" textFill="#d30808">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="150.0" layoutY="328.0" text="Quyền" textFill="#d30808">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <PasswordField fx:id="passwordField" layoutX="275.0" layoutY="274.0" prefHeight="27.0" prefWidth="185.0" />
-      <TextField fx:id="userName" layoutX="275.0" layoutY="221.0" prefHeight="27.0" prefWidth="185.0" />
-      <ComboBox fx:id="entitle" layoutX="275.0" layoutY="327.0" prefHeight="27.0" prefWidth="185.0" />
-      <Button layoutX="326.0" layoutY="396.0" mnemonicParsing="false" onAction="#DangNhap" text="Đăng nhập">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Button>
+      <GridPane layoutX="-6.0" layoutY="-5.0" prefHeight="374.0" prefWidth="707.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.3333435058594" minWidth="10.0" prefWidth="355.6666564941406" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="572.6666564941406" minWidth="10.0" prefWidth="494.3333435058594" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="353.0" prefWidth="410.0" style="-fx-background-color: #363636;" GridPane.columnIndex="1">
+               <children>
+                  <Label layoutX="79.0" layoutY="11.0" prefHeight="79.0" prefWidth="299.0" text="ĐĂNG NHẬP" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="42.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="127.0" text="Tài khoản" textFill="#ebf1f2">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="180.0" text="Mật khẩu" textFill="#ebf1f2">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="233.0" text="Quyền" textFill="#ebf1f2">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordField" layoutX="197.0" layoutY="180.0" prefHeight="30.0" prefWidth="186.0" promptText="Mật khẩu" styleClass="textField" text="1234" />
+                  <TextField fx:id="userName" layoutX="197.0" layoutY="126.0" prefHeight="30.0" prefWidth="186.0" promptText="Tài khoản" styleClass="textField" text="duong" />
+                  <ComboBox fx:id="entitle" layoutX="197.0" layoutY="232.0" prefHeight="30.0" prefWidth="186.0" />
+                  <Button layoutX="47.0" layoutY="299.0" mnemonicParsing="false" onAction="#DangNhap" prefHeight="14.0" prefWidth="171.0" style="-fx-background-radius: 30; -fx-background-color: #3399FF; -fx-border-color: #00676B; -fx-border-radius: 30; -fx-border-width: 3;" stylesheets="@application.css" text="ĐĂNG NHẬP" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="245.0" layoutY="300.0" mnemonicParsing="false" onAction="#DangKy" prefHeight="44.0" prefWidth="143.0" style="-fx-background-color: #3399FF; -fx-background-radius: 30; -fx-border-color: #00676B; -fx-border-radius: 30; -fx-border-width: 3;" text="ĐĂNG KÝ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="26.0" fitWidth="45.0" layoutX="339.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/user.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="45.0" layoutX="346.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/password.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="79.0" fitWidth="61.0" layoutX="17.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/login.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="391.0" prefWidth="273.0" style="-fx-background-color: #3399FF;">
+               <children>
+                  <Label fx:id="tx_TITLE" layoutX="59.0" layoutY="24.0" prefHeight="46.0" prefWidth="206.0" text="QUẢN LÝ TỔ CHỨC " textFill="#eee9e9">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="anh1" fitHeight="45.0" fitWidth="53.0" layoutX="6.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/school.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="anh2" fitHeight="224.0" fitWidth="211.0" layoutX="38.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/write.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="87.0" layoutY="61.0" prefHeight="30.0" prefWidth="128.0" text="TRÔNG THI" textFill="#eee9e9">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

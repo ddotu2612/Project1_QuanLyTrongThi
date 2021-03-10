@@ -1,42 +1,42 @@
-package controller.giamthicontroller;
+package controller.qtvcontroller.giamthicontroller;
 
-import controller.DBController;
+import controller.DataBaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Supervisor;
-import view.alert.Information;
+import model.GiamThi;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CapNhatGT {
-    static DBController  dbController = new DBController();
-    public static void CapNhat(TableView<Supervisor> supervisorTableView,TableColumn<Supervisor,String> hoVaTenGTColumn ,
-                               TableColumn<Supervisor,String> boMonGTColumn, TableColumn<Supervisor,String> phoneNumberGTColumn,
-                               TableColumn<Supervisor,String> emailGTColumn, TableColumn<Supervisor,String> phongGTColumn,
-                               TableColumn<Supervisor, Integer> soBuoiColum, ObservableList<Supervisor> supervisorsList,
+    static DataBaseController dataBaseController = new DataBaseController();
+    public static void CapNhat(TableView<GiamThi> supervisorTableView, TableColumn<GiamThi,String> hoVaTenGTColumn ,
+                               TableColumn<GiamThi,String> boMonGTColumn, TableColumn<GiamThi,String> phoneNumberGTColumn,
+                               TableColumn<GiamThi,String> emailGTColumn, TableColumn<GiamThi,String> phongGTColumn,
+                               TableColumn<GiamThi, Integer> soBuoiColum, ObservableList<GiamThi> supervisorsList,
                                ComboBox<String> hocKyGT) {
-        ArrayList<Supervisor> supervisor = null;
+        ArrayList<GiamThi> giamThi = null;
         try {
-            supervisor = dbController.supervisorList("GiamThi" + hocKyGT.getValue());
+            giamThi = dataBaseController.supervisorList("GiamThi" + hocKyGT.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         //Config giám thị
-        if(supervisor != null){
-            supervisorsList= FXCollections.observableArrayList(supervisor);
-            hoVaTenGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("nameLecturer"));
-            boMonGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("faculty"));
-            phoneNumberGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("phoneNumber"));
-            emailGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("email"));
-            phongGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("workPlace"));
-            soBuoiColum.setCellValueFactory(new PropertyValueFactory<Supervisor, Integer>("soBuoiToiDa"));
+        if(giamThi != null){
+            supervisorsList= FXCollections.observableArrayList(giamThi);
+            hoVaTenGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("nameLecturer"));
+            boMonGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("faculty"));
+            phoneNumberGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("phoneNumber"));
+            emailGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("email"));
+            phongGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("workPlace"));
+            soBuoiColum.setCellValueFactory(new PropertyValueFactory<GiamThi, Integer>("soBuoiToiDa"));
             supervisorTableView.setItems(supervisorsList);
+        } else {
+            supervisorTableView.setItems(null);
         }
     }
 }

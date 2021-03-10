@@ -1,14 +1,18 @@
-package controller;
+package controller.qtvcontroller;
 
-import controller.baocaothongke.BaoCaoChiTiet;
-import controller.baocaothongke.ThongKe;
-import controller.giamthicontroller.*;
-import controller.giaoviencontroller.*;
-import controller.lichthicontroller.*;
-import controller.phanconglichthi.CapNhatThongTinTrongThi;
-import controller.phanconglichthi.ChiTietPhanCong;
-import controller.phanconglichthi.PhanCong;
-import controller.phanconglichthi.TimKiemPhanCong;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
+import controller.DataControler;
+import controller.UpdatePCController;
+import controller.qtvcontroller.baocaothongke.BaoCaoChiTiet;
+import controller.qtvcontroller.baocaothongke.ThongKe;
+import controller.qtvcontroller.giamthicontroller.*;
+import controller.qtvcontroller.giaoviencontroller.*;
+import controller.qtvcontroller.lichthicontroller.*;
+import controller.qtvcontroller.phanconglichthi.CapNhatThongTinTrongThi;
+import controller.qtvcontroller.phanconglichthi.ChiTietPhanCong;
+import controller.qtvcontroller.phanconglichthi.PhanCong;
+import controller.qtvcontroller.phanconglichthi.TimKiemPhanCong;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,11 +34,12 @@ import view.alert.Warning;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
 public class QTVController implements Initializable {
-    DBController dbController = new DBController();
+    DataBaseController dataBaseController = new DataBaseController();
     //config lịch thi
     @FXML
     TextField maLopTextField;
@@ -64,34 +69,34 @@ public class QTVController implements Initializable {
     ComboBox<String> hocKyLT;
     ObservableList<String> listHKLT = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
-    TableView<TestSchedule> testScheduleTableView;
+    TableView<LichThi> testScheduleTableView;
     @FXML
-    TableColumn<TestSchedule,Integer> maLopColumn;
+    TableColumn<LichThi,Integer> maLopColumn;
     @FXML
-    TableColumn<TestSchedule,String> maHPColumn;
+    TableColumn<LichThi,String> maHPColumn;
     @FXML
-    TableColumn<TestSchedule,String> tenHPColumn;
+    TableColumn<LichThi,String> tenHPColumn;
     @FXML
-    TableColumn<TestSchedule,String> ghiChuColumn;
+    TableColumn<LichThi,String> ghiChuColumn;
     @FXML
-    TableColumn<TestSchedule,String> nhomColumn;
+    TableColumn<LichThi,String> nhomColumn;
     @FXML
-    TableColumn<TestSchedule,String> dotMoColumn;
+    TableColumn<LichThi,String> dotMoColumn;
     @FXML
-    TableColumn<TestSchedule,String> tuanColumn;
+    TableColumn<LichThi,String> tuanColumn;
     @FXML
-    TableColumn<TestSchedule,String> thuColumn;
+    TableColumn<LichThi,String> thuColumn;
     @FXML
-    TableColumn<TestSchedule, Date> ngayThiColumn;
+    TableColumn<LichThi, Date> ngayThiColumn;
     @FXML
-    TableColumn<TestSchedule,String> kipColumn;
+    TableColumn<LichThi,String> kipColumn;
     @FXML
-    TableColumn<TestSchedule,Integer> sldkColumn;
+    TableColumn<LichThi,Integer> sldkColumn;
     @FXML
-    TableColumn<TestSchedule,String> phongColumn;
+    TableColumn<LichThi,String> phongColumn;
     @FXML
     AnchorPane testScheduleAnchorPane;
-    ObservableList<TestSchedule> testScheduleList;
+    ObservableList<LichThi> lichThiList;
     //config giảng viên
     @FXML
     TextField hoVaTenGVTextField;
@@ -109,22 +114,22 @@ public class QTVController implements Initializable {
     ComboBox<String> hocKyGV;
     ObservableList<String> listHKGV = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
-    TableView<Lecturers> lecturerTableView;
+    TableView<GiangVien> lecturerTableView;
     @FXML
-    TableColumn<Lecturers,String> hoVaTenGVColumn;
+    TableColumn<GiangVien,String> hoVaTenGVColumn;
     @FXML
-    TableColumn<Lecturers,String> boMonGVColumn;
+    TableColumn<GiangVien,String> boMonGVColumn;
     @FXML
-    TableColumn<Lecturers,String> phoneNumberGVColumn;
+    TableColumn<GiangVien,String> phoneNumberGVColumn;
     @FXML
-    TableColumn<Lecturers,String> emailGVColumn;
+    TableColumn<GiangVien,String> emailGVColumn;
     @FXML
-    TableColumn<Lecturers,String> phongGVColumn;
+    TableColumn<GiangVien,String> phongGVColumn;
     @FXML
-    TableColumn<Lecturers,Integer> maLopGVColumn;
+    TableColumn<GiangVien,Integer> maLopGVColumn;
     @FXML
     AnchorPane lecturerAnchorPane;
-    ObservableList<Lecturers> lecturersList;
+    ObservableList<GiangVien> giangVienList;
 
     //config giám thị
     @FXML
@@ -143,22 +148,22 @@ public class QTVController implements Initializable {
     ComboBox<String> hocKyGT;
     ObservableList<String> listHKGT = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
-    TableView<Supervisor> supervisorTableView;
+    TableView<GiamThi> supervisorTableView;
     @FXML
-    TableColumn<Supervisor,String> hoVaTenGTColumn;
+    TableColumn<GiamThi,String> hoVaTenGTColumn;
     @FXML
-    TableColumn<Supervisor,String> boMonGTColumn;
+    TableColumn<GiamThi,String> boMonGTColumn;
     @FXML
-    TableColumn<Supervisor,String> phoneNumberGTColumn;
+    TableColumn<GiamThi,String> phoneNumberGTColumn;
     @FXML
-    TableColumn<Supervisor,String> emailGTColumn;
+    TableColumn<GiamThi,String> emailGTColumn;
     @FXML
-    TableColumn<Supervisor,String> phongGTColumn;
+    TableColumn<GiamThi,String> phongGTColumn;
     @FXML
-    TableColumn<Supervisor, Integer> soBuoiColum;
+    TableColumn<GiamThi, Integer> soBuoiColum;
     @FXML
     AnchorPane supervisorAnchorPane;
-    ObservableList<Supervisor> supervisorsList;
+    ObservableList<GiamThi> supervisorsList;
 
     //phan công trông thi
     @FXML TextArea detailPC;
@@ -168,18 +173,18 @@ public class QTVController implements Initializable {
     ComboBox<String> hocKyPC;
     ObservableList<String> listHKPC = FXCollections.observableArrayList("20191", "20192", "20193", "20201", "20202", "20203");
     @FXML
-    TableView<InfoTrongThi> tableViewTrongThi;
+    TableView<ThongTinTrongThi> tableViewTrongThi;
     @FXML
-    TableColumn<InfoTrongThi,Integer> malopTTColumn;
+    TableColumn<ThongTinTrongThi,Integer> malopTTColumn;
     @FXML
-    TableColumn<InfoTrongThi,String> giamThi1TTColumn;
+    TableColumn<ThongTinTrongThi,String> giamThi1TTColumn;
     @FXML
-    TableColumn<InfoTrongThi,String> giamThi2TTColumn;
+    TableColumn<ThongTinTrongThi,String> giamThi2TTColumn;
     @FXML
-    TableColumn<InfoTrongThi,Date> ngayThiTTColumn;
+    TableColumn<ThongTinTrongThi,Date> ngayThiTTColumn;
     @FXML
-    TableColumn<InfoTrongThi,String> kipThiTTColumn;
-    ObservableList<InfoTrongThi> trongThiList;
+    TableColumn<ThongTinTrongThi,String> kipThiTTColumn;
+    ObservableList<ThongTinTrongThi> trongThiList;
 
     //quản lý kinh phí
     @FXML TextField maLopKP;
@@ -234,12 +239,23 @@ public class QTVController implements Initializable {
         //Lịch thi
         hocKyLT.setOnAction(e->{
             if(!hocKyLT.getSelectionModel().isEmpty()) {
+                maLopTextField.setText("");
+                maHPTextField.setText("");
+                tenHPTextField.setText("");
+                ghiChuTextField.setText("");
+                nhomTextField.setText("");
+                dotMoTextField.setText("");
+                tuanTextField.setText("");
+                thuTextField.setText("");
+                kipTextField.setText("");
+                sldkTextField.setText("");
+                phongTextField.setText("");
                 new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                        tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                        tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
             }
         });
         testScheduleTableView.setOnMousePressed(e->{
-            TestSchedule lichThi = testScheduleTableView.getSelectionModel().getSelectedItem();
+            LichThi lichThi = testScheduleTableView.getSelectionModel().getSelectedItem();
             try {
                 maLopTextField.setText(String.valueOf(lichThi.getMaLop()));
                 maHPTextField.setText(lichThi.getMaHP());
@@ -260,12 +276,18 @@ public class QTVController implements Initializable {
         //config Giao Vien
         hocKyGV.setOnAction(e->{
             if(!hocKyGV.getSelectionModel().isEmpty()) {
+                hoVaTenGVTextField.setText("");
+                boMonGVTextField.setText("");
+                phoneNumberGVTextField.setText("");
+                emailGVTextField.setText("");
+                phongGVTextField.setText("");
+                maLopGVTextField.setText("");
                 new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                        maLopGVColumn, lecturersList, hocKyGV);
+                        maLopGVColumn, giangVienList, hocKyGV);
             }
         });
         lecturerTableView.setOnMousePressed(e->{
-            Lecturers gv = lecturerTableView.getSelectionModel().getSelectedItem();
+            GiangVien gv = lecturerTableView.getSelectionModel().getSelectedItem();
             try{
                 hoVaTenGVTextField.setText(gv.getNameLecturer());
                 boMonGVTextField.setText(gv.getFaculty());
@@ -280,13 +302,18 @@ public class QTVController implements Initializable {
 
         //config Giám thị
         hocKyGT.setOnAction(e->{
+            hoVaTenGTTextField.setText("");
+            boMonGTTextField.setText("");
+            phoneNumberGTTextField.setText("");
+            emailGTTextField.setText("");
+            phongGTTextField.setText("");
             if(!hocKyGT.getSelectionModel().isEmpty()) {
                 CapNhatGT.CapNhat(supervisorTableView, hoVaTenGTColumn, boMonGTColumn,
                         phoneNumberGTColumn,emailGTColumn,phongGTColumn,soBuoiColum,supervisorsList,hocKyGT);
             }
         });
         supervisorTableView.setOnMousePressed(e->{
-            Supervisor gt = supervisorTableView.getSelectionModel().getSelectedItem();
+            GiamThi gt = supervisorTableView.getSelectionModel().getSelectedItem();
             try {
                 hoVaTenGTTextField.setText(gt.getNameLecturer());
                 boMonGTTextField.setText(gt.getFaculty());
@@ -306,9 +333,10 @@ public class QTVController implements Initializable {
             }
         });
         tableViewTrongThi.setOnMousePressed(e->{
-            InfoTrongThi tt = tableViewTrongThi.getSelectionModel().getSelectedItem();
+            ThongTinTrongThi tt = tableViewTrongThi.getSelectionModel().getSelectedItem();
             try {
                 maLopTT.setText(String.valueOf(tt.getMaLop()));
+//                ChiTietPhanCong.ChiTietLop(hocKyPC,detailPC,maLopTT);
                 ChiTietPhanCong.ChiTiet(hocKyPC, tableViewTrongThi, detailPC);
             } catch (Exception ex) {
                 Error.ThongBaoLoi("Không có thông tin");
@@ -320,9 +348,9 @@ public class QTVController implements Initializable {
         //Bảng Đơn giá
         hocKyKP.setOnAction(e->{
             if(!hocKyKP.getSelectionModel().isEmpty()) {
-                controller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
+                controller.qtvcontroller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
                         giaTableColumn,donGiaList,hocKyKP);
-                controller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
+                controller.qtvcontroller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
                         phoToTableColumn,toChucThiTableColumn,kinhPhiGTTableColumn,checkThanhToanTableColumn,nhomKPTableColumn,
                         kinhPhiList,hocKyKP);
             }
@@ -368,10 +396,9 @@ public class QTVController implements Initializable {
         try{
             new TaoLichThi().TaoLich(hocKyLT, testScheduleAnchorPane);
             new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
         } catch (Exception ex) {
-//            Error.ThongBaoLoi("Chưa nhập học kỳ");
-            ex.printStackTrace();
+            Error.ThongBaoLoi("Chưa nhập học kỳ hoặc chưa chọn file");
         }
     }
 
@@ -380,7 +407,7 @@ public class QTVController implements Initializable {
             new ThemLichThi().ThemLich(hocKyLT, maLopTextField,maHPTextField,tenHPTextField,ghiChuTextField,nhomTextField,
                     dotMoTextField,tuanTextField,thuTextField,kipTextField,sldkTextField,phongTextField,ngayThiLT);
             new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhập đầy đủ các thông tin hoặc thông tin không đúng định dạng");
         }
@@ -388,10 +415,10 @@ public class QTVController implements Initializable {
 
     public void resetTestSchedule(ActionEvent e) {
         try {
-            if(hocKyLT.getValue().length() != 0 && dbController.checkExistTable("LichThi" + hocKyLT.getValue())){
+            if(hocKyLT.getValue().length() != 0 && dataBaseController.checkExistTable("LichThi" + hocKyLT.getValue())){
                 String tableName = "LichThi" + hocKyLT.getValue();
                 new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                        tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                        tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
             }else{
                 Error.ThongBaoLoi("bảng dữ liệu không tồn tại");
             }
@@ -416,7 +443,7 @@ public class QTVController implements Initializable {
             new SuaLichThi().sua(hocKyLT, maLopTextField,maHPTextField,tenHPTextField,ghiChuTextField,nhomTextField,
                     dotMoTextField,tuanTextField,thuTextField,kipTextField,sldkTextField,phongTextField,ngayThiLT,testScheduleTableView);
             new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhập học kỳ hoặc chưa đầy đủ thông tin ");
         }
@@ -424,27 +451,27 @@ public class QTVController implements Initializable {
 
     public void searchTestSchedule(ActionEvent e){
         try{
-            if(maLopTextField.getText().length() != 0 && hocKyLT.getValue().length() != 0 && dbController.checkExistTable("LichThi" + hocKyLT.getValue())){
+            if(maLopTextField.getText().length() != 0 && hocKyLT.getValue().length() != 0 && dataBaseController.checkExistTable("LichThi" + hocKyLT.getValue())){
                 int maLop= Integer.parseInt(maLopTextField.getText());
                 String tableName = "LichThi" + hocKyLT.getValue();
-                ArrayList<TestSchedule> list=dbController.searchTestScheduleFromDatabase(maLop,tableName);
+                ArrayList<LichThi> list= dataBaseController.searchTestScheduleFromDatabase(maLop,tableName);
                 if(list.size() ==0){
                     Information.ThongBaoThongTin("Không có mã lớp mà bạn tìm kiếm");
                 }else{
-                    testScheduleList=FXCollections.observableArrayList(list);
-                    maLopColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,Integer>("maLop"));
-                    maHPColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("maHP"));
-                    tenHPColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("tenHP"));
-                    ghiChuColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("ghiChu"));
-                    nhomColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("nhom"));
-                    dotMoColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("dotMo"));
-                    tuanColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("tuan"));
-                    thuColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("thu"));
-                    ngayThiColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,Date>("ngayThi"));
-                    kipColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("kip"));
-                    sldkColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,Integer>("SLDK"));
-                    phongColumn.setCellValueFactory(new PropertyValueFactory<TestSchedule,String>("phong"));
-                    testScheduleTableView.setItems(testScheduleList);
+                    lichThiList =FXCollections.observableArrayList(list);
+                    maLopColumn.setCellValueFactory(new PropertyValueFactory<LichThi,Integer>("maLop"));
+                    maHPColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("maHP"));
+                    tenHPColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("tenHP"));
+                    ghiChuColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("ghiChu"));
+                    nhomColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("nhom"));
+                    dotMoColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("dotMo"));
+                    tuanColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("tuan"));
+                    thuColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("thu"));
+                    ngayThiColumn.setCellValueFactory(new PropertyValueFactory<LichThi,Date>("ngayThi"));
+                    kipColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("kip"));
+                    sldkColumn.setCellValueFactory(new PropertyValueFactory<LichThi,Integer>("SLDK"));
+                    phongColumn.setCellValueFactory(new PropertyValueFactory<LichThi,String>("phong"));
+                    testScheduleTableView.setItems(lichThiList);
                 }
             }else {
                 Error.ThongBaoLoi("Bạn chưa nhập mã lớp hoặc học kỳ mà bạn tìm kiếm hoặc dữ liệu học kỳ bạn nhập không tồn tại");
@@ -458,7 +485,7 @@ public class QTVController implements Initializable {
         try {
             new XoaLichThi().xoa(hocKyLT,testScheduleTableView);
             new CapNhatLichThi().reset(testScheduleTableView,maLopColumn,maHPColumn,tenHPColumn,ghiChuColumn,nhomColumn,dotMoColumn,
-                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, testScheduleList, hocKyLT);
+                    tuanColumn,thuColumn,ngayThiColumn,kipColumn,sldkColumn,phongColumn, lichThiList, hocKyLT);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Lỗi! Bạn chưa nhập chọn kỳ hoặc hãy chọn lịch thi mà bạn muốn xóa ( có thể tìm kiếm theo mã lớp )");
         }
@@ -478,7 +505,7 @@ public class QTVController implements Initializable {
          try {
              new TaoThongTinGV().TaoTT(hocKyGV, lecturerAnchorPane);
              new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                     maLopGVColumn, lecturersList, hocKyGV);
+                     maLopGVColumn, giangVienList, hocKyGV);
          } catch (Exception ex) {
              Error.ThongBaoLoi("Bạn chưa nhập học kỳ hoặc chưa chọn file");
          }
@@ -489,7 +516,7 @@ public class QTVController implements Initializable {
             new ThemGiangVien().Them(hoVaTenGVTextField, boMonGVTextField,phoneNumberGVTextField,
                     emailGVTextField,phongGVTextField,maLopGVTextField,hocKyGV);
             new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                    maLopGVColumn, lecturersList, hocKyGV);
+                    maLopGVColumn, giangVienList, hocKyGV);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Nhập chưa đủ thông tin và sai định dạng");
         }
@@ -497,10 +524,10 @@ public class QTVController implements Initializable {
 
     public void resetLecturer(ActionEvent e) {
         try{
-            if(hocKyGV.getValue().length() != 0 && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            if(hocKyGV.getValue().length() != 0 && dataBaseController.checkExistTable("GiangVien" + hocKyGV.getValue())){
                 String tableName = "GiangVien" + hocKyGV.getValue();
                 new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                        maLopGVColumn, lecturersList, hocKyGV);
+                        maLopGVColumn, giangVienList, hocKyGV);
             }else{
                 Error.ThongBaoLoi("Bạn chưa nhập học kỳ bạn muốn reset hoặc bảng dữ liệu không tồn tại");
             }
@@ -520,7 +547,7 @@ public class QTVController implements Initializable {
             new SuaGiaoVien().Sua(hoVaTenGVTextField, boMonGVTextField, phoneNumberGVTextField, emailGVTextField, phongGVTextField,
                     maLopGVTextField, hocKyGV, lecturerTableView);
             new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                    maLopGVColumn, lecturersList, hocKyGV);
+                    maLopGVColumn, giangVienList, hocKyGV);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhập đầy đủ thông tin và chưa đúng định dạng");
         }
@@ -528,21 +555,21 @@ public class QTVController implements Initializable {
 
     public void searchLecturer(ActionEvent e) {
         try{
-            if(hoVaTenGVTextField.getText().length() != 0 && hocKyGV.getValue().length() != 0 &&dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+            if(hoVaTenGVTextField.getText().length() != 0 && hocKyGV.getValue().length() != 0 && dataBaseController.checkExistTable("GiangVien" + hocKyGV.getValue())){
                 String hoTen = hoVaTenGVTextField.getText();
                 String tableName = "GiangVien" + hocKyGV.getValue() ;
-                ArrayList<Lecturers> list = dbController.searchLecturerFromDatabase(hoTen,tableName);
+                ArrayList<GiangVien> list = dataBaseController.searchLecturerFromDatabase(hoTen,tableName);
                 if(list.size() == 0){
                     Information.ThongBaoThongTin("Không có tên giảng viên  mà bạn tìm kiếm");
                 }else{
-                    lecturersList = FXCollections.observableArrayList(list);
-                    hoVaTenGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,String>("nameLecturer"));
-                    boMonGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,String>("faculty"));
-                    phoneNumberGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,String>("phoneNumber"));
-                    emailGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,String>("email"));
-                    phongGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,String>("workPlace"));
-                    maLopGVColumn.setCellValueFactory(new PropertyValueFactory<Lecturers,Integer>("maLop"));
-                    lecturerTableView.setItems(lecturersList);
+                    giangVienList = FXCollections.observableArrayList(list);
+                    hoVaTenGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,String>("nameLecturer"));
+                    boMonGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,String>("faculty"));
+                    phoneNumberGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,String>("phoneNumber"));
+                    emailGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,String>("email"));
+                    phongGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,String>("workPlace"));
+                    maLopGVColumn.setCellValueFactory(new PropertyValueFactory<GiangVien,Integer>("maLop"));
+                    lecturerTableView.setItems(giangVienList);
                 }
             }else {
                 Error.ThongBaoLoi("Bạn chưa nhập tên giảng viên và học kỳ mà bạn tìm kiếm hoặc" +
@@ -557,7 +584,7 @@ public class QTVController implements Initializable {
         try{
             new XoaGiangVien().Xoa(hocKyGV, lecturerTableView);
             new CapNhatGiangVien().CapNhat(lecturerTableView, hoVaTenGVColumn, boMonGVColumn,phoneNumberGVColumn,emailGVColumn,phongGVColumn,
-                    maLopGVColumn, lecturersList, hocKyGV);
+                    maLopGVColumn, giangVienList, hocKyGV);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhập học kỳ hoặc chưa chọn 1 thông tin giảng viên " +
                     "để xóa (gợi ý là có thể tìm kiếm trước bằng họ tên)");
@@ -596,7 +623,7 @@ public class QTVController implements Initializable {
 
     public void resetSupervisor(ActionEvent e) {
         try{
-            if(hocKyGT.getValue().length() != 0 && dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            if(hocKyGT.getValue().length() != 0 && dataBaseController.checkExistTable("GiamThi" + hocKyGT.getValue())){
                 CapNhatGT.CapNhat(supervisorTableView, hoVaTenGTColumn, boMonGTColumn,
                         phoneNumberGTColumn,emailGTColumn,phongGTColumn,soBuoiColum,supervisorsList,hocKyGT);
             }else{
@@ -628,19 +655,19 @@ public class QTVController implements Initializable {
 
     public void searchSupervisor(ActionEvent e) {
         try {
-            if(hoVaTenGTTextField.getText().length() != 0 && hocKyGT.getValue().length() != 0 &&dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+            if(hoVaTenGTTextField.getText().length() != 0 && hocKyGT.getValue().length() != 0 && dataBaseController.checkExistTable("GiamThi" + hocKyGT.getValue())){
                 String hoTen = hoVaTenGTTextField.getText();
                 String tableName = "GiamThi" + hocKyGT.getValue();
-                Supervisor list = dbController.searchSupervisorFromDatabase(hoTen,tableName);
+                GiamThi list = dataBaseController.searchSupervisorFromDatabase(hoTen,tableName);
                 if(list== null){
                     Information.ThongBaoThongTin("Không có tên giám thị mà bạn tìm kiếm");
                 }else{
                     supervisorsList=FXCollections.observableArrayList(list);
-                    hoVaTenGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("nameLecturer"));
-                    boMonGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("faculty"));
-                    phoneNumberGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("phoneNumber"));
-                    emailGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("email"));
-                    phongGTColumn.setCellValueFactory(new PropertyValueFactory<Supervisor,String>("workPlace"));
+                    hoVaTenGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("nameLecturer"));
+                    boMonGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("faculty"));
+                    phoneNumberGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("phoneNumber"));
+                    emailGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("email"));
+                    phongGTColumn.setCellValueFactory(new PropertyValueFactory<GiamThi,String>("workPlace"));
                     supervisorTableView.setItems(supervisorsList);
                 }
             }else {
@@ -675,14 +702,14 @@ public class QTVController implements Initializable {
             CapNhatThongTinTrongThi.CapNhat(hocKyPC, tableViewTrongThi, malopTTColumn, giamThi1TTColumn, giamThi2TTColumn,
                     ngayThiTTColumn, kipThiTTColumn,trongThiList);
         } catch (Exception ex) {
-            Error.ThongBaoLoi("Bạn chưa nhập tên học kỳ hoặc lỗi kết nối");
+            Error.ThongBaoLoi("Bạn chưa nhập tên học kỳ hoặc lỗi kết nối hoặc không đủ giám thị để phân công");
         }
     }
 
     public void UpdatePhanCong(ActionEvent e) {
         try{
-            InfoTrongThi infoTrongThi = tableViewTrongThi.getSelectionModel().getSelectedItem();
-            if(infoTrongThi != null) {
+            ThongTinTrongThi thongTinTrongThi = tableViewTrongThi.getSelectionModel().getSelectedItem();
+            if(thongTinTrongThi != null) {
                 Stage stage = new Stage();
                 stage.setX(440);
                 stage.setY(170);
@@ -692,7 +719,7 @@ public class QTVController implements Initializable {
                 Scene scene=new Scene(parent);
                 stage.setScene(scene);
                 UpdatePCController controller = loader.getController();
-                controller.setTrongThi(infoTrongThi, hocKyPC.getValue());
+                controller.setTrongThi(thongTinTrongThi, hocKyPC.getValue());
                 stage.setTitle("Cập nhật thông tin phân công trông thi");
                 stage.show();
             } else {
@@ -728,19 +755,36 @@ public class QTVController implements Initializable {
         }
     }
 
-    public void detailPC(ActionEvent e) {
+    public void DataLockPC(ActionEvent e) {
+        Connection conn = DataBaseConnection.getInstance().getConnection();
+        DataControler dataControler = new DataControler();
         try{
-            ChiTietPhanCong.ChiTietLop(hocKyPC,detailPC,maLopTT);
+            if(hocKyPC.getValue().length() != 0 && dataControler.isCheckDataLock(
+                    "PhanCong" + hocKyPC.getValue())){
+                String tableName = "PhanCong" + hocKyPC.getValue();
+                String sql="insert into dbo.LockData values(?,?) ;";
+                var prepare= conn.prepareStatement(sql) ;
+                prepare.setString(1,tableName);
+                prepare.setInt(2,1);
+                var result=prepare.executeUpdate();
+                if(result>0){
+                    Information.ThongBaoThongTin("Bạn đã khóa thông tin phân công giám thị thành công ");
+                }else{
+                    Error.ThongBaoLoi("Khóa không thành công");
+                }
+            }else{
+                Error.ThongBaoLoi("Bạn chưa nhập học kỳ hoặc bảng đã bị khóa hoặc bảng không tồn tại");
+            }
         } catch (Exception ex) {
-            Error.ThongBaoLoi("Bạn chưa chọn học kỳ hoặc chưa nhập mã lớp hoặc ");
+            Error.ThongBaoLoi("Bạn chưa chọn học kỳ ");
         }
     }
 
     //chức năng quản lý kinh phí
     public void AddDG(ActionEvent e) {
         try{
-            controller.quanlykinhphi.DonGia.ThemDonGia(hocKyKP, giaKP, tenDonGiaKP);
-            controller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
+            controller.qtvcontroller.quanlykinhphi.DonGia.ThemDonGia(hocKyKP, giaKP, tenDonGiaKP);
+            controller.qtvcontroller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
                     giaTableColumn,donGiaList,hocKyKP);
         } catch (Exception ex)  {
             Error.ThongBaoLoi("Bạn chưa nhập đầy đủ thông tin hoặc không đúng định " +
@@ -750,8 +794,8 @@ public class QTVController implements Initializable {
 
     public void updateDG(ActionEvent e) {
         try{
-            controller.quanlykinhphi.DonGia.Sua(hocKyKP,giaKP,tenDonGiaKP,donGiaTableView);
-            controller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
+            controller.qtvcontroller.quanlykinhphi.DonGia.Sua(hocKyKP,giaKP,tenDonGiaKP,donGiaTableView);
+            controller.qtvcontroller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
                     giaTableColumn,donGiaList,hocKyKP);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhâp đầy đủ thông tin hoặc " +
@@ -761,8 +805,8 @@ public class QTVController implements Initializable {
 
     public void tinhToanChiPhi(ActionEvent e) {
         try {
-            controller.quanlykinhphi.KinhPhi.TinhToanKinhPhi(hocKyKP);
-            controller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
+            controller.qtvcontroller.quanlykinhphi.KinhPhi.TinhToanKinhPhi(hocKyKP);
+            controller.qtvcontroller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
                     phoToTableColumn,toChucThiTableColumn,kinhPhiGTTableColumn,checkThanhToanTableColumn,nhomKPTableColumn,
                     kinhPhiList,hocKyKP);
         } catch (Exception ex) {
@@ -772,8 +816,8 @@ public class QTVController implements Initializable {
 
     public void ThanhToanChiPhi(ActionEvent e) {
         try{
-            controller.quanlykinhphi.KinhPhi.ThanhToanKinhPhi(hocKyKP, maLopKP);
-            controller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
+            controller.qtvcontroller.quanlykinhphi.KinhPhi.ThanhToanKinhPhi(hocKyKP, maLopKP);
+            controller.qtvcontroller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
                     phoToTableColumn,toChucThiTableColumn,kinhPhiGTTableColumn,checkThanhToanTableColumn,nhomKPTableColumn,
                     kinhPhiList,hocKyKP);
         } catch (Exception ex) {
@@ -783,20 +827,22 @@ public class QTVController implements Initializable {
 
     public void chiTietThanhToan(ActionEvent e) {
         try {
-            controller.quanlykinhphi.KinhPhi.ChiTietThanhToan(hocKyKP,maLopKP, detailKP);
+            controller.qtvcontroller.quanlykinhphi.KinhPhi.ChiTietThanhToan(hocKyKP,maLopKP, detailKP);
         } catch (Exception ex) {
             Error.ThongBaoLoi("Bạn chưa nhâp học kỳ hoặc chưa đủ dữ liệu hoặc dữ liệu không hợp lệ");
         }
     }
 
-    public void resetKP(ActionEvent e) throws SQLException {
+    public void resetKP(ActionEvent e){
         try {
             if(hocKyKP.getValue() != null){
-                controller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
+                controller.qtvcontroller.quanlykinhphi.DonGia.CapNhatDonGia(donGiaTableView, tenDonGiaTableColumn,
                         giaTableColumn,donGiaList,hocKyKP);
-                controller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
+                controller.qtvcontroller.quanlykinhphi.KinhPhi.CapNhatKinhPhi(kinhPhiTableView,maLopKPTableColumn,tenGVTableColumn,inAnTableColumn,
                         phoToTableColumn,toChucThiTableColumn,kinhPhiGTTableColumn,checkThanhToanTableColumn,nhomKPTableColumn,
                         kinhPhiList,hocKyKP);
+                maLopKP.setText("");
+                detailKP.clear();
             }else{
                 Error.ThongBaoLoi("Bạn chưa nhâp học kỳ ");
             }

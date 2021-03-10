@@ -1,9 +1,8 @@
-package controller.giamthicontroller;
+package controller.qtvcontroller.giamthicontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -19,7 +18,6 @@ import view.alert.Warning;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,11 +25,11 @@ import java.sql.SQLException;
 public class TaoThongTinGiamThi {
     final int MAX_ROW = 1000000;
     //connect to database
-    Connection conn = DBConnection.getInstance().getConnection();
-    DBController dbController = new DBController();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
     public void TaoThongTin(ComboBox<String> hocKyGT, AnchorPane supervisorAnchorPane) throws IOException, SQLException {
-        if(hocKyGT.getValue().length() !=0  && !dbController.checkExistTable("GiamThi" + hocKyGT.getValue())){
+        if(hocKyGT.getValue().length() !=0  && !dataBaseController.checkExistTable("GiamThi" + hocKyGT.getValue())){
             String tableName = "GiamThi" + hocKyGT.getValue();
             if(dataControler.isCheckDataLock(tableName)){
                 //choose a file excel

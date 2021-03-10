@@ -1,10 +1,10 @@
-package controller.lichthicontroller;
+package controller.qtvcontroller.lichthicontroller;
 
-import controller.DBController;
+import controller.DataBaseController;
 import controller.DataControler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
-import model.TestSchedule;
+import model.LichThi;
 import view.alert.Confirmation;
 import view.alert.Error;
 import view.alert.Information;
@@ -13,15 +13,15 @@ import view.alert.Warning;
 import java.sql.SQLException;
 
 public class XoaLichThi {
-    DBController dbController = new DBController();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
-    public void xoa(ComboBox<String> hocKyLT, TableView<TestSchedule> testScheduleTableView) throws SQLException {
-        if(hocKyLT.getValue().length() != 0 && dbController.checkExistTable("LichThi" + hocKyLT.getValue())){
+    public void xoa(ComboBox<String> hocKyLT, TableView<LichThi> testScheduleTableView) throws SQLException {
+        if(hocKyLT.getValue().length() != 0 && dataBaseController.checkExistTable("LichThi" + hocKyLT.getValue())){
             String tableName = "LichThi" + hocKyLT.getValue();
             if(dataControler.isCheckDataLock(tableName)){
-                TestSchedule testSchedule=testScheduleTableView.getSelectionModel().getSelectedItem();
+                LichThi lichThi =testScheduleTableView.getSelectionModel().getSelectedItem();
                 if(Confirmation.ThongBaoXacNhan("Bạn có chắc muốn xóa lịch thi này ?")) {
-                    dbController.deleteTestScheduleFromDatabase(testSchedule,tableName);
+                    dataBaseController.deleteTestScheduleFromDatabase(lichThi,tableName);
                     Information.ThongBaoThongTin("Bạn đã xóa lịch thi thành công");
                 }
             }else{

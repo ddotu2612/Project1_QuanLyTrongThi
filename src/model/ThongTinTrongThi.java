@@ -3,17 +3,17 @@ package model;
 
 import java.util.Date;
 
-public class InfoTrongThi {
+public class ThongTinTrongThi {
     private int maLop;
     private String giamThi1;
     private String giamThi2;
     private Date ngayThi;
     private String kipThi;
 
-    public InfoTrongThi() {
+    public ThongTinTrongThi() {
     }
 
-    public InfoTrongThi(int maLop, String giamThi1, String giamThi2, Date ngayThi, String kipThi) {
+    public ThongTinTrongThi(int maLop, String giamThi1, String giamThi2, Date ngayThi, String kipThi) {
         this.maLop = maLop;
         this.giamThi1 = giamThi1;
         this.giamThi2 = giamThi2;

@@ -1,44 +1,44 @@
-package controller.phanconglichthi;
+package controller.qtvcontroller.phanconglichthi;
 
-import controller.DBController;
+import controller.DataBaseController;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import model.InfoTrongThi;
-import model.Supervisor;
+import model.GiamThi;
+import model.ThongTinTrongThi;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ChiTietPhanCong {
-    static DBController dbController = new DBController();
-    public static void ChiTiet(ComboBox<String> hocKyPC, TableView<InfoTrongThi> tableViewTrongThi,
+    static DataBaseController dataBaseController = new DataBaseController();
+    public static void ChiTiet(ComboBox<String> hocKyPC, TableView<ThongTinTrongThi> tableViewTrongThi,
                                TextArea detailPC) throws SQLException {
         if( hocKyPC.getValue().length() != 0){
             String tableSupervisor = "GiamThi"+hocKyPC.getValue();
-            InfoTrongThi infoTrongThi = tableViewTrongThi.getSelectionModel().getSelectedItem();
-            Supervisor supervisor1 = dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi1(),tableSupervisor);
-            Supervisor supervisor2 = dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi2(),tableSupervisor);
+            ThongTinTrongThi thongTinTrongThi = tableViewTrongThi.getSelectionModel().getSelectedItem();
+            GiamThi giamThi1 = dataBaseController.searchSupervisorFromDatabase(thongTinTrongThi.getGiamThi1(),tableSupervisor);
+            GiamThi giamThi2 = dataBaseController.searchSupervisorFromDatabase(thongTinTrongThi.getGiamThi2(),tableSupervisor);
             detailPC.clear();
             detailPC.appendText("____________THÔNG TIN CHI TIẾT_______________\n");
-            detailPC.appendText("______ Mã Lớp: " + infoTrongThi.getMaLop()+"\n");
-            detailPC.appendText("______Ngày thi: "+infoTrongThi.getNgayThi()+"\n");
-            detailPC.appendText("______Kíp thi: "+infoTrongThi.getKipThi()+"\n");
+            detailPC.appendText("______ Mã Lớp: " + thongTinTrongThi.getMaLop()+"\n");
+            detailPC.appendText("______Ngày thi: "+ thongTinTrongThi.getNgayThi()+"\n");
+            detailPC.appendText("______Kíp thi: "+ thongTinTrongThi.getKipThi()+"\n");
             detailPC.appendText("____________Thông tin giám thị_______________"+"\n");
             detailPC.appendText("_________________Giám thị 1__________________\n");
-            detailPC.appendText("______Họ tên: "+supervisor1.getNameLecturer()+"\n");
-            detailPC.appendText("______Bộ môn: "+supervisor1.getFaculty()+"\n");
-            detailPC.appendText("______Số điện thoại: "+supervisor1.getPhoneNumber()+"\n");
-            detailPC.appendText("______Email: "+supervisor1.getEmail()+"\n");
-            detailPC.appendText("______Phòng làm việc: "+supervisor1.getWorkPlace()+"\n");
-            if(supervisor2 != null){
+            detailPC.appendText("______Họ tên: "+ giamThi1.getNameLecturer()+"\n");
+            detailPC.appendText("______Bộ môn: "+ giamThi1.getFaculty()+"\n");
+            detailPC.appendText("______Số điện thoại: "+ giamThi1.getPhoneNumber()+"\n");
+            detailPC.appendText("______Email: "+ giamThi1.getEmail()+"\n");
+            detailPC.appendText("______Phòng làm việc: "+ giamThi1.getWorkPlace()+"\n");
+            if(giamThi2 != null){
                 detailPC.appendText("_________________Giám thị 2__________________\n");
-                detailPC.appendText("______Họ tên: "+supervisor2.getNameLecturer()+"\n");
-                detailPC.appendText("______Bộ môn: "+supervisor2.getFaculty()+"\n");
-                detailPC.appendText("______Số điện thoại: "+supervisor2.getPhoneNumber()+"\n");
-                detailPC.appendText("______Email: "+supervisor2.getEmail()+"\n");
-                detailPC.appendText("______Phòng làm việc: "+supervisor2.getWorkPlace()+"\n");
+                detailPC.appendText("______Họ tên: "+ giamThi2.getNameLecturer()+"\n");
+                detailPC.appendText("______Bộ môn: "+ giamThi2.getFaculty()+"\n");
+                detailPC.appendText("______Số điện thoại: "+ giamThi2.getPhoneNumber()+"\n");
+                detailPC.appendText("______Email: "+ giamThi2.getEmail()+"\n");
+                detailPC.appendText("______Phòng làm việc: "+ giamThi2.getWorkPlace()+"\n");
             }else{
                 detailPC.appendText("__________________Giám thị 2___________________\n");
                 detailPC.appendText("___________________Không có____________________\n");
@@ -52,28 +52,28 @@ public class ChiTietPhanCong {
             int maLop = Integer.parseInt(maLopTT.getText());
             String tableName = "PhanCong" + hocKyPC.getValue();
             String tableSupervisor = "GiamThi"+hocKyPC.getValue();
-            ArrayList<InfoTrongThi> list = dbController.searchInfoTrongThiFromDatabase(maLop, tableName);
-            for(InfoTrongThi infoTrongThi : list) {
-                Supervisor supervisor1 = dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi1(),tableSupervisor);
-                Supervisor supervisor2 = dbController.searchSupervisorFromDatabase(infoTrongThi.getGiamThi2(),tableSupervisor);
+            ArrayList<ThongTinTrongThi> list = dataBaseController.searchInfoTrongThiFromDatabase(maLop, tableName);
+            for(ThongTinTrongThi thongTinTrongThi : list) {
+                GiamThi giamThi1 = dataBaseController.searchSupervisorFromDatabase(thongTinTrongThi.getGiamThi1(),tableSupervisor);
+                GiamThi giamThi2 = dataBaseController.searchSupervisorFromDatabase(thongTinTrongThi.getGiamThi2(),tableSupervisor);
                 detailPC.appendText("____________THÔNG TIN CHI TIẾT_______________\n");
-                detailPC.appendText("______ Mã Lớp: " + infoTrongThi.getMaLop()+"\n");
-                detailPC.appendText("______Ngày thi: "+infoTrongThi.getNgayThi()+"\n");
-                detailPC.appendText("______Kíp thi: "+infoTrongThi.getKipThi()+"\n");
+                detailPC.appendText("______ Mã Lớp: " + thongTinTrongThi.getMaLop()+"\n");
+                detailPC.appendText("______Ngày thi: "+ thongTinTrongThi.getNgayThi()+"\n");
+                detailPC.appendText("______Kíp thi: "+ thongTinTrongThi.getKipThi()+"\n");
                 detailPC.appendText("____________Thông tin giám thị_______________"+"\n");
                 detailPC.appendText("_________________Giám thị 1__________________\n");
-                detailPC.appendText("______Họ tên: "+supervisor1.getNameLecturer()+"\n");
-                detailPC.appendText("______Bộ môn: "+supervisor1.getFaculty()+"\n");
-                detailPC.appendText("______Số điện thoại: "+supervisor1.getPhoneNumber()+"\n");
-                detailPC.appendText("______Email: "+supervisor1.getEmail()+"\n");
-                detailPC.appendText("______Phòng làm việc: "+supervisor1.getWorkPlace()+"\n");
-                if(supervisor2 != null){
+                detailPC.appendText("______Họ tên: "+ giamThi1.getNameLecturer()+"\n");
+                detailPC.appendText("______Bộ môn: "+ giamThi1.getFaculty()+"\n");
+                detailPC.appendText("______Số điện thoại: "+ giamThi1.getPhoneNumber()+"\n");
+                detailPC.appendText("______Email: "+ giamThi1.getEmail()+"\n");
+                detailPC.appendText("______Phòng làm việc: "+ giamThi1.getWorkPlace()+"\n");
+                if(giamThi2 != null){
                     detailPC.appendText("_________________Giám thị 2__________________\n");
-                    detailPC.appendText("______Họ tên: "+supervisor2.getNameLecturer()+"\n");
-                    detailPC.appendText("______Bộ môn: "+supervisor2.getFaculty()+"\n");
-                    detailPC.appendText("______Số điện thoại: "+supervisor2.getPhoneNumber()+"\n");
-                    detailPC.appendText("______Email: "+supervisor2.getEmail()+"\n");
-                    detailPC.appendText("______Phòng làm việc: "+supervisor2.getWorkPlace()+"\n");
+                    detailPC.appendText("______Họ tên: "+ giamThi2.getNameLecturer()+"\n");
+                    detailPC.appendText("______Bộ môn: "+ giamThi2.getFaculty()+"\n");
+                    detailPC.appendText("______Số điện thoại: "+ giamThi2.getPhoneNumber()+"\n");
+                    detailPC.appendText("______Email: "+ giamThi2.getEmail()+"\n");
+                    detailPC.appendText("______Phòng làm việc: "+ giamThi2.getWorkPlace()+"\n");
                 }else{
                     detailPC.appendText("__________________Giám thị 2___________________\n");
                     detailPC.appendText("___________________Không có____________________\n");

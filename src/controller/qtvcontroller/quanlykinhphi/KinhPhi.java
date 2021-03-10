@@ -1,13 +1,13 @@
-package controller.quanlykinhphi;
+package controller.qtvcontroller.quanlykinhphi;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
+import controller.DataControler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.TestSchedule;
+import model.LichThi;
 import view.alert.Error;
 import view.alert.Information;
 
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class KinhPhi {
-    static DBController dbController = new DBController();
+    static DataBaseController dataBaseController = new DataBaseController();
     public static void CapNhatKinhPhi(TableView<model.KinhPhi> kinhPhiTableView, TableColumn<model.KinhPhi,Integer> maLopKPTableColumn,
                                       TableColumn<model.KinhPhi,String> tenGVTableColumn,TableColumn<model.KinhPhi,Long> inAnTableColumn,
                                       TableColumn<model.KinhPhi,Long> phoToTableColumn,TableColumn<model.KinhPhi,Long> toChucThiTableColumn,
@@ -25,7 +25,7 @@ public class KinhPhi {
                                       ComboBox<String> hocKyKP) {
         ArrayList<model.KinhPhi> kinhPhi = null;
         try {
-            kinhPhi = dbController.kinhPhiList("KinhPhi" + hocKyKP.getValue());
+            kinhPhi = dataBaseController.kinhPhiList("KinhPhi" + hocKyKP.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,42 +40,48 @@ public class KinhPhi {
             checkThanhToanTableColumn.setCellValueFactory(new PropertyValueFactory<model.KinhPhi,Integer>("checkThanhToan"));
             nhomKPTableColumn.setCellValueFactory(new PropertyValueFactory<model.KinhPhi,String>("nhom"));
             kinhPhiTableView.setItems(kinhPhiList);
+        } else {
+            kinhPhiTableView.setItems(null);
         }
     }
-    static Connection conn = DBConnection.getInstance().getConnection();
+    static Connection conn = DataBaseConnection.getInstance().getConnection();
     public static void TinhToanKinhPhi(ComboBox<String> hocKyKP) throws SQLException {
-        if(hocKyKP.getValue().length() != 0 && !dbController.checkExistTable("KinhPhi" + hocKyKP.getValue())){
-            String tableNameGV = "GiangVien" + hocKyKP.getValue();
-            String tableNameDG = "DonGia" + hocKyKP.getValue();
-            String tableNameKP = "KinhPhi" + hocKyKP.getValue();
-            String tableNameLT = "LichThi" + hocKyKP.getValue();
-            ArrayList<TestSchedule> listLT = dbController.testScheduleList(tableNameLT);
-            if(listLT != null){
-                if(dbController.checkExistTable(tableNameKP)){
-                    String sql="drop table " + tableNameKP;
-                    var prepare=new DBConnection().getConnection().prepareStatement(sql);
+        if(!new DataControler().isCheckDataLock("PhanCong" + hocKyKP.getValue())) {
+            if(hocKyKP.getValue().length() != 0 && !dataBaseController.checkExistTable("KinhPhi" + hocKyKP.getValue())){
+                String tableNameGV = "GiangVien" + hocKyKP.getValue();
+                String tableNameDG = "DonGia" + hocKyKP.getValue();
+                String tableNameKP = "KinhPhi" + hocKyKP.getValue();
+                String tableNameLT = "LichThi" + hocKyKP.getValue();
+                ArrayList<LichThi> listLT = dataBaseController.testScheduleList(tableNameLT);
+                if(listLT != null){
+                    if(dataBaseController.checkExistTable(tableNameKP)){
+                        String sql="drop table " + tableNameKP;
+                        var prepare= conn.prepareStatement(sql);
+                        prepare.executeUpdate();
+                    }
+                    String sql1="create table " + tableNameKP + " (maLop int,tenGV nvarchar(50) ,inAn bigint " +
+                            ",phoTo bigint,toChucThi bigint,kinhPhiGT bigint,checkThanhToan int,nhom nvarchar(50));";
+                    var prepare = conn.prepareStatement(sql1);
                     prepare.executeUpdate();
+                    for (LichThi test:listLT) {
+                        int maLop=test.getMaLop();
+                        String tenGV= dataBaseController.searchNameLecturer(maLop,tableNameGV);
+                        long inAn= dataBaseController.getGia("in ấn",tableNameDG)*test.getSLDK();
+                        long phoTo= dataBaseController.getGia("Phô tô đề thi",tableNameDG)*test.getSLDK();
+                        long toChucThi= dataBaseController.getGia("Kinh phí tổ chức",tableNameDG)*test.getSLDK();
+                        long kinhPhiGT= dataBaseController.getGia("Tiền giám thị",tableNameDG)*((test.getSLDK()>=60) ? 2:1) ;
+                        model.KinhPhi kinhPhi=new model.KinhPhi(maLop,tenGV,inAn,phoTo,toChucThi,kinhPhiGT,0,test.getNhom());
+                        dataBaseController.addKinhPhi(kinhPhi,tableNameKP);
+                    }
+                    Information.ThongBaoThongTin("Tính toán kinh phí thành công");
+                }else{
+                    Error.ThongBaoLoi("Học kỳ bạn nhập không tồn tại trong cơ sở dữ liệu");
                 }
-                String sql1="create table " + tableNameKP + " (maLop int,tenGV nvarchar(50) ,inAn bigint " +
-                        ",phoTo bigint,toChucThi bigint,kinhPhiGT bigint,checkThanhToan int,nhom nvarchar(50));";
-                var prepare = conn.prepareStatement(sql1);
-                prepare.executeUpdate();
-                for (TestSchedule test:listLT) {
-                    int maLop=test.getMaLop();
-                    String tenGV=dbController.searchNameLecturer(maLop,tableNameGV);
-                    long inAn=dbController.getGia("in ấn",tableNameDG)*test.getSLDK();
-                    long phoTo=dbController.getGia("Phô tô đề thi",tableNameDG)*test.getSLDK();
-                    long toChucThi=dbController.getGia("Kinh phí tổ chức",tableNameDG)*test.getSLDK();
-                    long kinhPhiGT=dbController.getGia("Tiền giám thị",tableNameDG)*((test.getSLDK()>=60) ? 2:1) ;
-                    model.KinhPhi kinhPhi=new model.KinhPhi(maLop,tenGV,inAn,phoTo,toChucThi,kinhPhiGT,0,test.getNhom());
-                    dbController.addKinhPhi(kinhPhi,tableNameKP);
-                }
-                Information.ThongBaoThongTin("Tính toán kinh phí thành công");
             }else{
-                Error.ThongBaoLoi("Học kỳ bạn nhập không tồn tại trong cơ sở dữ liệu");
+                Error.ThongBaoLoi("Bạn chưa nhâp học kỳ hoặc đã tính toán chi phí cho học kỳ này rồi");
             }
-        }else{
-            Error.ThongBaoLoi("Bạn chưa nhâp học kỳ hoặc đã tính toán chi phí cho học kỳ này rồi");
+        } else {
+            Error.ThongBaoLoi("Chưa thể tính toán kinh phí khi chưa phân công giám thị và tổ chức thi");
         }
     }
 
@@ -83,7 +89,7 @@ public class KinhPhi {
         if(hocKyKP.getValue().length() != 0){
             String tableName = "KinhPhi" + hocKyKP.getValue();
             String sql = "update "+ tableName+ " set checkThanhToan=? where maLop = ?";
-            var prepare=new DBConnection().getConnection().prepareStatement(sql);
+            var prepare= conn.prepareStatement(sql);
             prepare.setInt(1,1);
             prepare.setInt(2, Integer.parseInt(maLopKP.getText()));
             if(prepare.executeUpdate()>0) {
@@ -102,7 +108,7 @@ public class KinhPhi {
             String tableNameKP="KinhPhi" + hocKyKP.getValue();
             if(detailKP.getText().length() !=0) detailKP.setText("");
             int maLop= Integer.parseInt(maLopKP.getText());
-            ArrayList<model.KinhPhi> listKP = dbController.searchKinhPhiList(maLop,tableNameKP);
+            ArrayList<model.KinhPhi> listKP = dataBaseController.searchKinhPhiList(maLop,tableNameKP);
             if(listKP != null) {
                 detailKP.appendText("Chi tiết thanh toán mã lớp: "+ maLopKP.getText()+"\n");
                 detailKP.appendText("Giảng viên giảng dạy: "+listKP.get(0).getTenGV()+"\n");

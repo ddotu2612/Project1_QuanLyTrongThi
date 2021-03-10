@@ -1,9 +1,8 @@
-package controller.giaoviencontroller;
+package controller.qtvcontroller.giaoviencontroller;
 
-import controller.DBConnection;
-import controller.DBController;
+import controller.DataBaseConnection;
+import controller.DataBaseController;
 import controller.DataControler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import view.alert.Error;
 import view.alert.Information;
@@ -13,10 +12,10 @@ import java.sql.SQLException;
 
 public class KhoaGV {
     DataControler dataControler = new DataControler();
-    DBController dbController = new DBController();
-    Connection conn = DBConnection.getInstance().getConnection();
+    DataBaseController dataBaseController = new DataBaseController();
+    Connection conn = DataBaseConnection.getInstance().getConnection();
     public void Khoa( ComboBox<String> hocKyGV) throws SQLException {
-        if(hocKyGV.getValue().length() != 0 && dataControler.isCheckDataLock("GiangVien" + hocKyGV.getValue()) && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+        if(hocKyGV.getValue().length() != 0 && dataControler.isCheckDataLock("GiangVien" + hocKyGV.getValue()) && dataBaseController.checkExistTable("GiangVien" + hocKyGV.getValue())){
             String tableName = "GiangVien" + hocKyGV.getValue();
             String sql="insert into dbo.LockData values(?,?) ;";
             var prepare=conn.prepareStatement(sql) ;

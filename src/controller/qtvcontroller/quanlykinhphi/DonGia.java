@@ -1,13 +1,10 @@
-package controller.quanlykinhphi;
+package controller.qtvcontroller.quanlykinhphi;
 
-import controller.DBController;
+import controller.DataBaseController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.InfoTrongThi;
-import org.apache.poi.hssf.record.chart.LineFormatRecord;
 import view.alert.Error;
 import view.alert.Information;
 
@@ -15,13 +12,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DonGia {
-    static DBController dbController = new DBController();
+    static DataBaseController dataBaseController = new DataBaseController();
     public static void ThemDonGia(ComboBox<String> hocKyKP, TextField giaKP, ComboBox<String> tenDonGiaKP) throws SQLException {
         if(hocKyKP.getValue() != null ){
             String tableName = "DonGia" + hocKyKP.getValue();
             long gia = Long.parseLong(giaKP.getText());
             String tenDonGia = tenDonGiaKP.getValue();
-            if(dbController.addDonGia(tenDonGia,gia,tableName)){
+            if(dataBaseController.addDonGia(tenDonGia,gia,tableName)){
                 Information.ThongBaoThongTin("Bạn đã thêm đơn giá thành công");
             }else{
                 Error.ThongBaoLoi("Bạn chưa thêm đơn giá thành công ");
@@ -35,7 +32,7 @@ public class DonGia {
                                      ComboBox<String> hocKyKP) {
         ArrayList<model.DonGia> donGia=null;
         try {
-            donGia=dbController.donGiaList("DonGia" + hocKyKP.getValue());
+            donGia= dataBaseController.donGiaList("DonGia" + hocKyKP.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +50,7 @@ public class DonGia {
             String tableName = "DonGia" + hocKyKP.getValue();
             model.DonGia donGia = donGiaTableView.getSelectionModel().getSelectedItem();
             model.DonGia donGia1 = new model.DonGia(tenDonGiaKP.getValue(),Long.parseLong(giaKP.getText()));
-            if(dbController.updateDonGia(donGia,donGia1,tableName)){
+            if(dataBaseController.updateDonGia(donGia,donGia1,tableName)){
                 Information.ThongBaoThongTin("Bạn cập nhật đơn giá thành công ");
             }else{
                 Error.ThongBaoLoi("Bạn chưa cập nhật đơn giá thành công (Hãy chọn đúng tên đơn giá)");

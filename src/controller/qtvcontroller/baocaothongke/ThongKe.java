@@ -1,6 +1,6 @@
-package controller.baocaothongke;
+package controller.qtvcontroller.baocaothongke;
 
-import controller.DBController;
+import controller.DataBaseController;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -13,11 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ThongKe {
-    static DBController dbController = new DBController();
+    static DataBaseController dataBaseController = new DataBaseController();
     public static void thongKe(BarChart<String, Number> barChart, ComboBox<String> hocKyTK) throws SQLException {
         if(hocKyTK.getValue() != null) {
             String tableName = "KinhPhi" + hocKyTK.getValue();
-            ArrayList<KinhPhi> list = dbController.kinhPhiList(tableName);
+            ArrayList<KinhPhi> list = dataBaseController.kinhPhiList(tableName);
             if(list != null) {
                 long inAn = 0, phoTo = 0, toChuc = 0, giamThi = 0;
                 for(var i : list) {

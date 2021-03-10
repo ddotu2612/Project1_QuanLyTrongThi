@@ -13,16 +13,16 @@
       <root url="jar://F:/c_1/poi-4.1.2/lib/junit-4.12.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/lib/log4j-1.2.17.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/lib/SparseBitSet-1.2.jar!/" />
+      <root url="jar://F:/c_1/poi-4.1.2/ooxml-lib/curvesapi-1.06.jar!/" />
+      <root url="jar://F:/c_1/poi-4.1.2/ooxml-lib/xmlbeans-3.1.0.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-4.1.2.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-examples-4.1.2.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-excelant-4.1.2.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-ooxml-4.1.2.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-ooxml-schemas-4.1.2.jar!/" />
       <root url="jar://F:/c_1/poi-4.1.2/poi-scratchpad-4.1.2.jar!/" />
-      <root url="file://F:/c_1/poi-4.1.2/ooxml-lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://F:/c_1/poi-4.1.2/ooxml-lib" recursive="false" />
   </library>
 </component>

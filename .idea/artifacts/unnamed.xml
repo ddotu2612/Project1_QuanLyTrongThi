@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="javafx" name="unnamed">
-    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <output-path>$USER_HOME$/Documents/a</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="view.QLTT" />

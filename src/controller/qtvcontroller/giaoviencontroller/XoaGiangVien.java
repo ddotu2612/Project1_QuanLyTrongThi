@@ -1,9 +1,9 @@
-package controller.giaoviencontroller;
+package controller.qtvcontroller.giaoviencontroller;
 
-import controller.DBController;
+import controller.DataBaseController;
 import controller.DataControler;
 import javafx.scene.control.*;
-import model.Lecturers;
+import model.GiangVien;
 import view.alert.Confirmation;
 import view.alert.Error;
 import view.alert.Information;
@@ -12,15 +12,15 @@ import view.alert.Warning;
 import java.sql.SQLException;
 
 public class XoaGiangVien {
-    DBController dbController = new DBController();
+    DataBaseController dataBaseController = new DataBaseController();
     DataControler dataControler = new DataControler();
-    public void Xoa(ComboBox<String> hocKyGV, TableView<Lecturers> lecturerTableView) throws SQLException {
-        if(hocKyGV.getValue().length() != 0 && dbController.checkExistTable("GiangVien" + hocKyGV.getValue())){
+    public void Xoa(ComboBox<String> hocKyGV, TableView<GiangVien> lecturerTableView) throws SQLException {
+        if(hocKyGV.getValue().length() != 0 && dataBaseController.checkExistTable("GiangVien" + hocKyGV.getValue())){
             String tableName = "GiangVien" + hocKyGV.getValue();
             if(dataControler.isCheckDataLock(tableName)){
-                Lecturers lecturers = lecturerTableView.getSelectionModel().getSelectedItem();
+                GiangVien giangVien = lecturerTableView.getSelectionModel().getSelectedItem();
                 if(Confirmation.ThongBaoXacNhan("Bạn có chắc muốn xóa thông tin giảng viên này hay không")) {
-                    dbController.deleteLecturerFromDatabase(lecturers,tableName);
+                    dataBaseController.deleteLecturerFromDatabase(giangVien,tableName);
                     Information.ThongBaoThongTin("Bạn đã xoá thông tin giảng viên thành công ");
                 }
             }else{
